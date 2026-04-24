@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammet Nihat Mesut</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{--neo:#39ff14;--neo-rgb:57,255,20;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:#080a08;color:#e2e8f0;font-family:'Barlow',sans-serif;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.04) 2px,rgba(0,0,0,0.04) 4px);pointer-events:none;z-index:9997;}
+.glow-line{height:2px;background:linear-gradient(90deg,transparent,var(--neo),transparent);box-shadow:0 0 14px var(--neo);}
+.bg-grid{background-image:linear-gradient(rgba(57,255,20,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(57,255,20,0.04) 1px,transparent 1px);background-size:60px 60px;}
+.nav-link{color:#5a7a5a;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.88rem;letter-spacing:.15em;text-transform:uppercase;transition:color .2s;position:relative;}
+.nav-link::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1.5px;background:var(--neo);box-shadow:0 0 6px var(--neo);transform:scaleX(0);transition:transform .25s;}
+.nav-link:hover{color:var(--neo);}.nav-link:hover::after{transform:scaleX(1);}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.8rem,9vw,8rem);line-height:.95;letter-spacing:-.01em;text-transform:uppercase;}
+.title-stroke{color:transparent;-webkit-text-stroke:2px var(--neo);text-shadow:0 0 40px rgba(57,255,20,.25);}
+.cursor{display:inline-block;width:3px;height:.85em;background:var(--neo);vertical-align:middle;margin-left:4px;animation:blink 1s step-end infinite;box-shadow:0 0 10px var(--neo);}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.btn-solid{background:var(--neo);color:#080a08;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;letter-spacing:.12em;text-transform:uppercase;padding:.75rem 2rem;border-radius:7px;border:none;text-decoration:none;display:inline-block;box-shadow:0 0 22px rgba(57,255,20,.35);transition:box-shadow .3s,transform .2s;cursor:pointer;}
+.btn-solid:hover{box-shadow:0 0 40px rgba(57,255,20,.6);transform:translateY(-2px);}
+.btn-outline{background:transparent;border:1.5px solid var(--neo);color:var(--neo);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.12em;text-transform:uppercase;padding:.75rem 2rem;border-radius:7px;text-decoration:none;display:inline-block;position:relative;overflow:hidden;transition:color .3s;cursor:pointer;}
+.btn-outline::before{content:'';position:absolute;inset:0;background:var(--neo);transform:scaleX(0);transform-origin:left;transition:transform .3s;z-index:0;}
+.btn-outline:hover::before{transform:scaleX(1);}.btn-outline:hover{color:#080a08;}.btn-outline span{position:relative;z-index:1;}
+.sec-label{display:flex;align-items:center;gap:1rem;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--neo);margin-bottom:.6rem;}
+.sec-label::before{content:'';width:40px;height:2px;background:var(--neo);box-shadow:0 0 8px var(--neo);}
+.sec-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:6rem;color:rgba(57,255,20,.05);line-height:1;position:absolute;top:-1rem;right:0;letter-spacing:-.05em;user-select:none;}
+.sec-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.2rem,4vw,3.2rem);text-transform:uppercase;letter-spacing:-.01em;line-height:1.05;margin-bottom:2.5rem;}
+.sec-title em{color:var(--neo);font-style:normal;}
+.card{background:#0d110d;border:1px solid rgba(57,255,20,.1);border-radius:12px;transition:all .3s ease;}
+.card:hover{border-color:rgba(57,255,20,.4);box-shadow:0 0 30px rgba(57,255,20,.08);transform:translateY(-4px);}
+.skill-bar{height:3px;background:rgba(57,255,20,.1);border-radius:2px;overflow:hidden;}
+.skill-fill{height:100%;background:linear-gradient(90deg,var(--neo),#a8ff80);box-shadow:0 0 8px rgba(57,255,20,.5);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform 1.1s ease .2s;}
+.skill-fill.active{transform:scaleX(1);}
+.badge{background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.2);color:#86efac;padding:.2rem .75rem;border-radius:5px;font-size:.72rem;font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.08em;display:inline-block;}
+.icon-wrap{width:52px;height:52px;border-radius:12px;background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.18);display:flex;align-items:center;justify-content:center;font-size:1.5rem;transition:all .3s;flex-shrink:0;}
+.card:hover .icon-wrap{background:rgba(57,255,20,.13);box-shadow:0 0 16px rgba(57,255,20,.15);}
+.contact-item{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:#0d110d;border:1px solid rgba(57,255,20,.1);border-radius:10px;text-decoration:none;color:#e2e8f0;transition:all .3s;position:relative;overflow:hidden;}
+.contact-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--neo);box-shadow:0 0 8px var(--neo);transform:scaleY(0);transition:transform .3s;}
+.contact-item:hover{border-color:rgba(57,255,20,.4);transform:translateX(5px);}.contact-item:hover::before{transform:scaleY(1);}
+.tl-line{position:absolute;left:18px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--neo),rgba(57,255,20,.05));box-shadow:0 0 8px rgba(57,255,20,.15);}
+.tl-dot{width:38px;height:38px;border-radius:50%;background:#0d110d;border:2px solid var(--neo);box-shadow:0 0 14px rgba(57,255,20,.3);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;position:relative;z-index:1;}
+.tl-dot.done{background:rgba(57,255,20,.15);}
+.tl-dot.now{animation:pulse-dot 2s infinite;}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 14px rgba(57,255,20,.3)}50%{box-shadow:0 0 28px rgba(57,255,20,.7)}}
+.msg-input{background:#0d110d;border:1px solid rgba(57,255,20,.15);border-radius:8px;padding:.75rem 1rem;color:#e2e8f0;font-family:'Barlow',sans-serif;font-size:.93rem;width:100%;outline:none;transition:border-color .25s;}
+.msg-input:focus{border-color:rgba(57,255,20,.5);box-shadow:0 0 0 3px rgba(57,255,20,.06);}
+.msg-input::placeholder{color:#3a4a3a;}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.shown{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ── CHAT WIDGET ── */
+#chat-bubble{position:fixed;bottom:2rem;right:2rem;z-index:1000;width:58px;height:58px;border-radius:50%;background:var(--neo);box-shadow:0 0 24px rgba(57,255,20,.5);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.5rem;transition:transform .2s,box-shadow .2s;border:none;}
+#chat-bubble:hover{transform:scale(1.1);box-shadow:0 0 40px rgba(57,255,20,.7);}
+#chat-unread{position:absolute;top:-4px;right:-4px;background:#ef4444;color:#fff;border-radius:50%;width:20px;height:20px;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;display:none;}
+#chat-window{position:fixed;bottom:5.5rem;right:2rem;z-index:1000;width:340px;height:520px;background:#0d110d;border:1px solid rgba(57,255,20,.25);border-radius:16px;box-shadow:0 0 40px rgba(57,255,20,.1);display:none;flex-direction:column;overflow:hidden;}
+#chat-header{background:#111811;border-bottom:1px solid rgba(57,255,20,.15);padding:.9rem 1.1rem;display:flex;align-items:center;justify-content:space-between;}
+#chat-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.6rem;scroll-behavior:smooth;}
+#chat-messages::-webkit-scrollbar{width:4px;}
+#chat-messages::-webkit-scrollbar-track{background:transparent;}
+#chat-messages::-webkit-scrollbar-thumb{background:rgba(57,255,20,.2);border-radius:2px;}
+.bubble{max-width:78%;padding:.65rem .9rem;border-radius:14px;font-size:.86rem;line-height:1.55;word-break:break-word;}
+.bubble.visitor{background:#1a2a1a;border:1px solid rgba(57,255,20,.12);color:#c8e8c8;border-bottom-left-radius:4px;align-self:flex-start;}
+.bubble.admin{background:rgba(57,255,20,.12);border:1px solid rgba(57,255,20,.25);color:#e2f8e2;border-bottom-right-radius:4px;align-self:flex-end;}
+.bubble-time{font-size:.65rem;color:#3a5a3a;margin-top:.25rem;}
+.bubble.admin .bubble-time{text-align:right;}
+#chat-name-screen{padding:1.5rem;display:flex;flex-direction:column;gap:.9rem;}
+#chat-input-area{border-top:1px solid rgba(57,255,20,.12);padding:.7rem;display:flex;gap:.5rem;align-items:flex-end;}
+#chat-input{flex:1;background:#111811;border:1px solid rgba(57,255,20,.15);border-radius:10px;padding:.55rem .8rem;color:#e2e8f0;font-family:'Barlow',sans-serif;font-size:.88rem;outline:none;resize:none;max-height:100px;transition:border-color .2s;}
+#chat-input:focus{border-color:rgba(57,255,20,.4);}
+#chat-send{background:var(--neo);border:none;border-radius:8px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:box-shadow .2s;}
+#chat-send:hover{box-shadow:0 0 14px rgba(57,255,20,.5);}
+#chat-emoji-bar{padding:.4rem .7rem;display:flex;gap:.4rem;border-bottom:1px solid rgba(57,255,20,.08);}
+.chat-emoji-btn{background:none;border:none;font-size:1.1rem;cursor:pointer;padding:.2rem .3rem;border-radius:6px;transition:background .2s;}
+.chat-emoji-btn:hover{background:rgba(57,255,20,.1);}
+
+/* ── ADMIN PANEL ── */
+#admin-panel{display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.9);backdrop-filter:blur(14px);overflow-y:auto;}
+.admin-inner{max-width:720px;margin:2rem auto;padding:0 1rem 4rem;}
+.admin-card{background:#0d110d;border:1px solid rgba(57,255,20,.2);border-radius:14px;padding:1.5rem;margin-bottom:1.2rem;}
+/* Konuşma listesi */
+.conv-item{background:#111811;border:1px solid rgba(57,255,20,.1);border-radius:10px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:all .25s;margin-bottom:.7rem;}
+.conv-item:hover{border-color:rgba(57,255,20,.35);background:#151f15;}
+.conv-item.active{border-color:rgba(57,255,20,.4);background:#152015;}
+.conv-avatar{width:40px;height:40px;border-radius:50%;background:rgba(57,255,20,.1);border:1.5px solid rgba(57,255,20,.25);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.conv-unread{background:var(--neo);color:#080a08;border-radius:50%;width:20px;height:20px;font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-left:auto;flex-shrink:0;}
+/* Admin chat */
+#admin-chat-area{display:none;}
+.admin-bubble-wrap{display:flex;flex-direction:column;}
+.admin-msg{max-width:80%;padding:.65rem .9rem;border-radius:14px;font-size:.86rem;line-height:1.55;word-break:break-word;margin-bottom:.5rem;}
+.admin-msg.visitor{background:#1a2a1a;border:1px solid rgba(57,255,20,.12);color:#c8e8c8;border-bottom-left-radius:4px;align-self:flex-start;}
+.admin-msg.admin{background:rgba(57,255,20,.12);border:1px solid rgba(57,255,20,.25);color:#e2f8e2;border-bottom-right-radius:4px;align-self:flex-end;}
+.admin-msg-input{background:#111811;border:1px solid rgba(57,255,20,.2);border-radius:8px;padding:.65rem .9rem;color:#e2e8f0;font-family:'Barlow',sans-serif;font-size:.9rem;width:100%;outline:none;}
+.admin-msg-input:focus{border-color:rgba(57,255,20,.45);}
+.btn-sm{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;padding:.45rem 1rem;border-radius:6px;cursor:pointer;border:none;transition:all .2s;}
+.btn-neo{background:var(--neo);color:#080a08;}.btn-neo:hover{box-shadow:0 0 14px rgba(57,255,20,.5);}
+.btn-red{background:transparent;color:#ef4444;border:1px solid #ef4444;}.btn-red:hover{background:#ef4444;color:#fff;}
+.btn-gray{background:transparent;color:#5a7a5a;border:1px solid rgba(57,255,20,.15);}.btn-gray:hover{border-color:rgba(57,255,20,.35);color:var(--neo);}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav style="position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(8,10,8,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(57,255,20,.08);">
+  <div style="max-width:1100px;margin:0 auto;padding:1.1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;">
+    <a href="#hero" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.25rem;letter-spacing:.08em;color:var(--neo);text-decoration:none;text-shadow:0 0 12px rgba(57,255,20,.4);">MNM<span style="color:#2a3a2a">_</span></a>
+    <div style="display:flex;align-items:center;gap:1.8rem;flex-wrap:wrap;">
+      <a href="#hakkimda" class="nav-link">Hakkımda</a>
+      <a href="#projeler" class="nav-link">Projeler</a>
+      <a href="#sertifikalar" class="nav-link">Kurslar</a>
+      <a href="#hedefler" class="nav-link">Hedefler</a>
+      <a href="#iletisim" class="nav-link">İletişim</a>
+      <button onclick="openAdmin()" style="background:rgba(57,255,20,.08);border:1px solid rgba(57,255,20,.2);color:var(--neo);padding:.35rem .9rem;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;">⚙ Admin</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero" class="bg-grid" style="min-height:100vh;display:flex;align-items:center;padding-top:80px;overflow:hidden;position:relative;">
+  <div style="position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(57,255,20,.05) 0%,transparent 70%);top:-150px;right:-200px;pointer-events:none;"></div>
+  <div style="max-width:1100px;margin:0 auto;padding:4rem 1.5rem;width:100%;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;" id="hero-grid">
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:.7rem;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--neo);margin-bottom:1.5rem;">
+        <span style="width:30px;height:1px;background:var(--neo);display:inline-block;box-shadow:0 0 6px var(--neo);"></span>
+        Hitit Üniversitesi · BST 1. Sınıf
+      </div>
+      <div class="hero-title" style="margin-bottom:1.2rem;">
+        <div>Muhammet</div>
+        <div class="title-stroke">Nihat</div>
+        <div>Mesut<span class="cursor"></span></div>
+      </div>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-weight:400;font-size:clamp(1rem,2.2vw,1.4rem);color:#5a7a5a;letter-spacing:.05em;text-transform:uppercase;margin-bottom:2.5rem;">
+        Yazılıma Meraklı, <span style="color:var(--neo);">Öğrenmeye Açık Bir Üniversite Öğrencisi</span>
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:3rem;">
+        <a href="#projeler" class="btn-solid">Projelerim</a>
+        <button onclick="openChat()" class="btn-outline"><span>💬 Benimle Konuş</span></button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:2.5rem;">
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.3rem;color:var(--neo);line-height:1;text-shadow:0 0 16px rgba(57,255,20,.4);">5+</div><div style="font-size:.75rem;color:#3a5a3a;letter-spacing:.1em;text-transform:uppercase;">Teknoloji</div></div>
+        <div style="width:1px;background:rgba(57,255,20,.1);"></div>
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.3rem;color:var(--neo);line-height:1;text-shadow:0 0 16px rgba(57,255,20,.4);">4+</div><div style="font-size:.75rem;color:#3a5a3a;letter-spacing:.1em;text-transform:uppercase;">Udemy Kursu</div></div>
+        <div style="width:1px;background:rgba(57,255,20,.1);"></div>
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.3rem;color:var(--neo);line-height:1;text-shadow:0 0 16px rgba(57,255,20,.4);">∞</div><div style="font-size:.75rem;color:#3a5a3a;letter-spacing:.1em;text-transform:uppercase;">Motivasyon</div></div>
+      </div>
+    </div>
+    <div style="width:280px;" id="hero-card">
+      <div style="background:#0d110d;border:1px solid rgba(57,255,20,.18);border-radius:14px;padding:1.8rem;position:relative;">
+        <div style="position:absolute;top:-1px;left:2rem;right:2rem;height:2px;background:linear-gradient(90deg,var(--neo),rgba(57,255,20,.2));box-shadow:0 0 8px var(--neo);"></div>
+        <div style="font-size:.72rem;color:#3a5a3a;letter-spacing:.08em;margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem;">
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--neo);box-shadow:0 0 8px var(--neo);display:inline-block;animation:blink 2s infinite;"></span>
+          Aktif olarak öğreniyor
+        </div>
+        <div style="background:#080a08;border:1px solid rgba(57,255,20,.1);padding:1rem;border-radius:8px;font-size:.78rem;line-height:2;font-family:'Barlow Condensed',sans-serif;">
+          <span style="color:#5a8a5a;">const</span> <span style="color:var(--neo);">nihat</span> = {<br>
+          &nbsp;&nbsp;<span style="color:#7a9a7a;">okul</span>: <span style="color:#a8ff80;">"Hitit Üni"</span>,<br>
+          &nbsp;&nbsp;<span style="color:#7a9a7a;">hedef</span>: <span style="color:#a8ff80;">"Full-Stack"</span>,<br>
+          &nbsp;&nbsp;<span style="color:#7a9a7a;">durum</span>: <span style="color:#a8ff80;">"öğreniyor"</span>,<br>
+          &nbsp;&nbsp;<span style="color:#7a9a7a;">fc</span>: <span style="color:var(--neo);">true</span>,<br>
+          <span style="color:#3a5a3a;">};</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ══ HAKKIMDA ══ -->
+<section id="hakkimda" style="background:#0b0d0b;padding:6rem 0;position:relative;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem;">
+    <div style="position:relative;margin-bottom:2.5rem;"><span class="sec-num">01</span><div class="sec-label">Hakkımda</div><h2 class="sec-title">Kim <em>Olduğum</em></h2></div>
+    <div class="card reveal" style="padding:1.8rem 2rem;margin-bottom:2rem;display:flex;flex-wrap:wrap;gap:2rem;align-items:center;">
+      <div style="flex:1;min-width:200px;"><div style="font-size:.7rem;color:#3a5a3a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.4rem;">Üniversite</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;color:#e2e8f0;">Hitit Üniversitesi</div><div style="font-size:.86rem;color:#5a7a5a;">Bilişim Sistemleri ve Teknolojileri</div></div>
+      <div style="flex:1;min-width:140px;"><div style="font-size:.7rem;color:#3a5a3a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.4rem;">Dönem</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;color:var(--neo);">1. Sınıf</div><div style="font-size:.86rem;color:#5a7a5a;">2024 – Devam ediyor</div></div>
+      <div style="flex:1;min-width:140px;"><div style="font-size:.7rem;color:#3a5a3a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.4rem;">Hedef</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;color:#e2e8f0;">Full-Stack Dev</div><div style="font-size:.86rem;color:#5a7a5a;">Web & Uygulama</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;" id="about-grid">
+      <div class="reveal" style="display:flex;flex-direction:column;gap:1.1rem;">
+        <p style="font-size:.97rem;line-height:1.85;color:#6a8a6a;">Merhaba, ben <span style="color:#e2e8f0;font-weight:600;">Muhammet Nihat Mesut</span>. Çorum'da üniversite okuyan, yazılıma ve teknolojiye meraklı bir öğrenciyim.</p>
+        <p style="font-size:.97rem;line-height:1.85;color:#6a8a6a;">Özellikle <span style="color:#e2e8f0;font-weight:500;">web teknolojileri ve uygulama geliştirme</span> alanında kendimi geliştirmeye odaklanıyorum. HTML/CSS ile başladığım bu yolculuğa Python, C++ ve JavaScript de eklendi.</p>
+        <p style="font-size:.97rem;line-height:1.85;color:#6a8a6a;">Henüz yolun başındayım ama merak etmeyi ve öğrenmeyi hiç bırakmıyorum. Uzun vadeli hedefim iyi bir <span style="color:var(--neo);font-weight:500;">Full-Stack Developer</span> olmak.</p>
+      </div>
+      <div class="reveal d1">
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.15em;text-transform:uppercase;color:#3a5a3a;margin-bottom:1.4rem;">Öğrendiğim Teknolojiler</h3>
+        <div style="display:flex;flex-direction:column;gap:1.2rem;" id="skills-container">
+          <div class="skill-item"><div style="display:flex;justify-content:space-between;margin-bottom:.45rem;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;text-transform:uppercase;letter-spacing:.05em;">HTML & CSS</span><span style="font-size:.72rem;color:var(--neo);">İyi Seviye</span></div><div class="skill-bar"><div class="skill-fill" data-w=".8"></div></div></div>
+          <div class="skill-item"><div style="display:flex;justify-content:space-between;margin-bottom:.45rem;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;text-transform:uppercase;letter-spacing:.05em;">Python</span><span style="font-size:.72rem;color:var(--neo);">Gelişiyor</span></div><div class="skill-bar"><div class="skill-fill" data-w=".65"></div></div></div>
+          <div class="skill-item"><div style="display:flex;justify-content:space-between;margin-bottom:.45rem;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;text-transform:uppercase;letter-spacing:.05em;">JavaScript</span><span style="font-size:.72rem;color:var(--neo);">Öğreniyor</span></div><div class="skill-bar"><div class="skill-fill" data-w=".5"></div></div></div>
+          <div class="skill-item"><div style="display:flex;justify-content:space-between;margin-bottom:.45rem;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;text-transform:uppercase;letter-spacing:.05em;">C++</span><span style="font-size:.72rem;color:var(--neo);">Temel</span></div><div class="skill-bar"><div class="skill-fill" data-w=".4"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ══ PROJELER ══ -->
+<section id="projeler" style="background:#080a08;padding:6rem 0;position:relative;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem;">
+    <div style="position:relative;margin-bottom:2.5rem;"><span class="sec-num">02</span><div class="sec-label">Projeler</div><h2 class="sec-title">İnşa <em>Ettiklerim</em></h2></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;">
+      <div class="card reveal" style="padding:1.8rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;"><div class="icon-wrap">💰</div><span style="background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25);color:#fbbf24;padding:.2rem .7rem;border-radius:5px;font-size:.68rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;">Yakında</span></div>
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.6rem;">Gelir Getiren Web Projesi</h3>
+        <p style="font-size:.86rem;line-height:1.75;color:#5a7a5a;margin-bottom:1.2rem;">Hem para kazandıracak hem de adımı duyuracak kapsamlı bir web projesi. Fikir aşamasında, yakında hayata geçiyor.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;"><span class="badge">Full-Stack</span><span class="badge">Gelir Odaklı</span></div>
+      </div>
+      <div class="card reveal d1" style="padding:1.8rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;"><div class="icon-wrap">🌐</div><span style="background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.2);color:var(--neo);padding:.2rem .7rem;border-radius:5px;font-size:.68rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;">Bu Site</span></div>
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.6rem;">Kişisel Portfolyo Sitesi</h3>
+        <p style="font-size:.86rem;line-height:1.75;color:#5a7a5a;margin-bottom:1.2rem;">Sıfırdan tasarladığım kişisel portfolyo. HTML, CSS, JavaScript ve Tailwind ile geliştirildi.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;"><span class="badge">HTML/CSS</span><span class="badge">JavaScript</span><span class="badge">Tailwind</span></div>
+      </div>
+      <div class="card reveal d2" style="padding:1.8rem;border-style:dashed;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;"><div class="icon-wrap" style="font-size:1.3rem;">＋</div><span style="background:rgba(57,255,20,.04);border:1px solid rgba(57,255,20,.1);color:#3a5a3a;padding:.2rem .7rem;border-radius:5px;font-size:.68rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;">Planlıyor</span></div>
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.6rem;color:#3a5a3a;">Gelecek Proje</h3>
+        <p style="font-size:.86rem;line-height:1.75;color:#2a3a2a;margin-bottom:1.2rem;">Kurslardan öğrendiklerimi uygulayacağım yeni proje. Yakında burada olacak.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;"><span class="badge" style="opacity:.4;">Python</span><span class="badge" style="opacity:.4;">Web</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ══ SERTİFİKALAR ══ -->
+<section id="sertifikalar" style="background:#0b0d0b;padding:6rem 0;position:relative;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem;">
+    <div style="position:relative;margin-bottom:2.5rem;"><span class="sec-num">03</span><div class="sec-label">Kurslar & Sertifikalar</div><h2 class="sec-title">Udemy'de <em>Öğreniyorum</em></h2></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem;">
+      <div class="card reveal" style="padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;"><div class="icon-wrap">🐍</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.3rem;">Python</div><div style="font-size:.78rem;color:#5a7a5a;margin-bottom:.7rem;">Udemy · Sıfırdan İleri Seviye</div><span style="background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);color:#fbbf24;padding:.15rem .6rem;border-radius:4px;font-size:.68rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;">Devam Ediyor</span></div></div>
+      <div class="card reveal d1" style="padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;"><div class="icon-wrap">⚙️</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.3rem;">C++</div><div style="font-size:.78rem;color:#5a7a5a;margin-bottom:.7rem;">Udemy · Temel & OOP</div><span style="background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);color:#fbbf24;padding:.15rem .6rem;border-radius:4px;font-size:.68rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;">Devam Ediyor</span></div></div>
+      <div class="card reveal d2" style="padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;"><div class="icon-wrap">🌐</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.3rem;">HTML & CSS</div><div style="font-size:.78rem;color:#5a7a5a;margin-bottom:.7rem;">Udemy · Web Temelleri</div><span style="background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);color:#fbbf24;padding:.15rem .6rem;border-radius:4px;font-size:.68rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;">Devam Ediyor</span></div></div>
+      <div class="card reveal d3" style="padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;"><div class="icon-wrap">⚡</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.3rem;">JavaScript</div><div style="font-size:.78rem;color:#5a7a5a;margin-bottom:.7rem;">Udemy · Modern JS</div><span style="background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.18);color:var(--neo);padding:.15rem .6rem;border-radius:4px;font-size:.68rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;">Planlıyor</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ══ HEDEFLER ══ -->
+<section id="hedefler" style="background:#080a08;padding:6rem 0;position:relative;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem;">
+    <div style="position:relative;margin-bottom:2.5rem;"><span class="sec-num">04</span><div class="sec-label">Hedefler & Yol Haritası</div><h2 class="sec-title">Nereye <em>Gidiyorum</em></h2></div>
+    <div style="max-width:650px;position:relative;padding-left:56px;">
+      <div class="tl-line"></div>
+      <div style="display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:2.2rem;" class="reveal"><div class="tl-dot done" style="margin-left:-56px;flex-shrink:0;">✓</div><div class="card" style="flex:1;padding:1.3rem 1.5rem;"><div style="font-size:.68rem;color:var(--neo);letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.3rem;">2024 · Tamamlandı</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;margin-bottom:.4rem;">Üniversite Başlangıcı</div><p style="font-size:.85rem;color:#5a7a5a;line-height:1.7;">Hitit Üniversitesi BST bölümüne başladım. Temelleri sağlam atmak için HTML/CSS ve Python'a odaklandım.</p></div></div>
+      <div style="display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:2.2rem;" class="reveal d1"><div class="tl-dot now" style="margin-left:-56px;flex-shrink:0;">▶</div><div class="card" style="flex:1;padding:1.3rem 1.5rem;border-color:rgba(57,255,20,.25);"><div style="font-size:.68rem;color:var(--neo);letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.3rem;">2025 · Şu An</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;margin-bottom:.4rem;">Udemy Kursları & İlk Projeler</div><p style="font-size:.85rem;color:#5a7a5a;line-height:1.7;">Python, C++, HTML/CSS kurslarını tamamlamak. İlk gerçek projemi hayata geçirmek ve para kazanmaya başlamak.</p></div></div>
+      <div style="display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:2.2rem;" class="reveal d2"><div class="tl-dot" style="margin-left:-56px;flex-shrink:0;">3</div><div class="card" style="flex:1;padding:1.3rem 1.5rem;"><div style="font-size:.68rem;color:#5a7a5a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.3rem;">2026 · Hedef</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;margin-bottom:.4rem;">React & Backend Öğren</div><p style="font-size:.85rem;color:#5a7a5a;line-height:1.7;">Frontend'de React, backend'de Node.js veya Django öğrenmek. Full-Stack projelere başlamak.</p></div></div>
+      <div style="display:flex;gap:1.2rem;align-items:flex-start;" class="reveal d3"><div class="tl-dot" style="margin-left:-56px;flex-shrink:0;">4</div><div class="card" style="flex:1;padding:1.3rem 1.5rem;"><div style="font-size:.68rem;color:#5a7a5a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.3rem;">2027+ · Vizyon</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;margin-bottom:.4rem;">Kendi Ürününü Çıkar</div><p style="font-size:.85rem;color:#5a7a5a;line-height:1.7;">Bağımsız bir ürün veya SaaS çıkarmak. Yazılımla geçimini sağlamak ve sektörde nam salmak.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ══ HOBİLER ══ -->
+<section id="hobiler" style="background:#0b0d0b;padding:6rem 0;position:relative;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem;">
+    <div style="position:relative;margin-bottom:2.5rem;"><span class="sec-num">05</span><div class="sec-label">Hobiler</div><h2 class="sec-title">Boş <em>Zamanım</em></h2></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.3rem;">
+      <div class="card reveal" style="padding:1.6rem;"><div class="icon-wrap" style="margin-bottom:1rem;">⚽</div><h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;text-transform:uppercase;margin-bottom:.5rem;">EA Sports FC</h3><p style="font-size:.86rem;color:#5a7a5a;line-height:1.7;">Ultimate Team, kariyer modu — sahada olsun ekranda olsun futbol sevgisi değişmez.</p></div>
+      <div class="card reveal d1" style="padding:1.6rem;"><div class="icon-wrap" style="margin-bottom:1rem;">💻</div><h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;text-transform:uppercase;margin-bottom:.5rem;">Yazılım & Web</h3><p style="font-size:.86rem;color:#5a7a5a;line-height:1.7;">Hobi olarak kod yazmak, yeni teknolojileri keşfetmek ve projeler geliştirmek.</p></div>
+      <div class="card reveal d2" style="padding:1.6rem;"><div class="icon-wrap" style="margin-bottom:1rem;">🔩</div><h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;text-transform:uppercase;margin-bottom:.5rem;">Teknoloji Takibi</h3><p style="font-size:.86rem;color:#5a7a5a;line-height:1.7;">Yeni çıkan teknolojileri, donanımları ve yazılım trendlerini takip etmek.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ══ İLETİŞİM ══ -->
+<section id="iletisim" style="background:#080a08;padding:6rem 0;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem;">
+    <div style="position:relative;margin-bottom:2.5rem;"><span class="sec-num">06</span><div class="sec-label">İletişim</div><h2 class="sec-title">Bana <em>Ulaş</em></h2></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;" id="contact-grid">
+      <div class="reveal"><p style="font-size:1rem;line-height:1.85;color:#5a7a5a;margin-bottom:1.2rem;">İş birliği, proje fikri ya da sadece merhaba demek için aşağıdan ulaşabilirsin. <span style="color:#e2e8f0;">Her mesaja bakarım.</span></p><button onclick="openChat()" class="btn-solid" style="margin-top:.5rem;">💬 Sohbet Başlat</button></div>
+      <div style="display:flex;flex-direction:column;gap:.9rem;" class="reveal d1">
+        <a href="mailto:mhmmtmesut@gmail.com" class="contact-item"><div class="icon-wrap" style="width:44px;height:44px;border-radius:10px;font-size:1.2rem;">✉️</div><div style="flex:1;"><div style="font-size:.68rem;color:#3a5a3a;letter-spacing:.1em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.15rem;">E-Posta</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;">mhmmtmesut@gmail.com</div></div><span style="color:var(--neo);">→</span></a>
+        <a href="https://instagram.com/mhmmtmst" target="_blank" rel="noopener" class="contact-item"><div class="icon-wrap" style="width:44px;height:44px;border-radius:10px;font-size:1.2rem;">📸</div><div style="flex:1;"><div style="font-size:.68rem;color:#3a5a3a;letter-spacing:.1em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.15rem;">Instagram</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;">@mhmmtmst</div></div><span style="color:var(--neo);">→</span></a>
+        <a href="https://www.linkedin.com/in/muhammet-nihat-mesut" target="_blank" rel="noopener" class="contact-item"><div class="icon-wrap" style="width:44px;height:44px;border-radius:10px;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div><div style="flex:1;"><div style="font-size:.68rem;color:#3a5a3a;letter-spacing:.1em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.15rem;">LinkedIn</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;">Muhammet Nihat Mesut</div></div><span style="color:var(--neo);">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#080a08;border-top:1px solid rgba(57,255,20,.07);padding:1.8rem 0;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;">
+    <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:#2a3a2a;">© 2026 Muhammet Nihat Mesut</span>
+    <span style="font-size:.78rem;color:#1a2a1a;">Yazılım yolculuğu devam ediyor <span style="color:var(--neo);">⚡</span></span>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     CHAT WIDGET (Ziyaretçi tarafı)
+══════════════════════════════════════════ -->
+<button id="chat-bubble" onclick="toggleChat()">
+  💬
+  <span id="chat-unread"></span>
+</button>
+
+<div id="chat-window">
+  <div id="chat-header">
+    <div style="display:flex;align-items:center;gap:.7rem;">
+      <div style="width:34px;height:34px;border-radius:50%;background:rgba(57,255,20,.12);border:1.5px solid rgba(57,255,20,.3);display:flex;align-items:center;justify-content:center;font-size:1rem;">🧑‍💻</div>
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:.04em;">Nihat Mesut</div>
+        <div style="font-size:.68rem;color:#5a7a5a;display:flex;align-items:center;gap:.3rem;" id="online-status">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--neo);box-shadow:0 0 5px var(--neo);display:inline-block;"></span> Çevrimiçi
+        </div>
+      </div>
+    </div>
+    <button onclick="toggleChat()" style="background:none;border:none;color:#5a7a5a;cursor:pointer;font-size:1.2rem;padding:.2rem;">✕</button>
+  </div>
+
+  <!-- İsim ekranı -->
+  <div id="chat-name-screen">
+    <p style="font-size:.88rem;color:#5a7a5a;line-height:1.7;">Merhaba! Benimle konuşmak için isminizi girin 👋</p>
+    <input class="msg-input" id="visitor-name-input" type="text" placeholder="Adınız..." maxlength="30">
+    <button class="btn-solid" onclick="startChat()" style="width:100%;">Sohbeti Başlat</button>
+  </div>
+
+  <!-- Mesaj alanı (gizli başlangıçta) -->
+  <div id="chat-body" style="display:none;flex:1;flex-direction:column;overflow:hidden;">
+    <div id="chat-emoji-bar">
+      <button class="chat-emoji-btn" onclick="sendEmoji('👋')">👋</button>
+      <button class="chat-emoji-btn" onclick="sendEmoji('🔥')">🔥</button>
+      <button class="chat-emoji-btn" onclick="sendEmoji('💪')">💪</button>
+      <button class="chat-emoji-btn" onclick="sendEmoji('🚀')">🚀</button>
+      <button class="chat-emoji-btn" onclick="sendEmoji('⚡')">⚡</button>
+      <button class="chat-emoji-btn" onclick="sendEmoji('❤️')">❤️</button>
+      <button class="chat-emoji-btn" onclick="sendEmoji('👀')">👀</button>
+    </div>
+    <div id="chat-messages"></div>
+    <div id="chat-input-area">
+      <textarea id="chat-input" placeholder="Mesajını yaz..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"></textarea>
+      <button id="chat-send" onclick="sendMessage()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#080a08" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ADMIN PANELİ
+══════════════════════════════════════════ -->
+<div id="admin-panel">
+  <div class="admin-inner">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;padding-top:1rem;">
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;text-transform:uppercase;color:var(--neo);text-shadow:0 0 16px rgba(57,255,20,.4);">Admin Paneli</div>
+        <div style="font-size:.8rem;color:#3a5a3a;letter-spacing:.1em;">Sohbetleri buradan yönet</div>
+      </div>
+      <button onclick="closeAdmin()" class="btn-sm btn-red" style="border-radius:8px;padding:.55rem 1.2rem;">✕ Kapat</button>
+    </div>
+
+    <!-- Giriş -->
+    <div id="admin-login" class="admin-card">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:#e2e8f0;margin-bottom:1rem;">🔐 Admin Girişi</div>
+      <div style="display:flex;gap:.8rem;">
+        <input type="password" id="admin-pass" class="msg-input" placeholder="Şifre..." onkeydown="if(event.key==='Enter')checkAdmin()">
+        <button onclick="checkAdmin()" class="btn-solid" style="white-space:nowrap;">Giriş</button>
+      </div>
+      <div id="pass-error" style="display:none;color:#ef4444;font-size:.8rem;margin-top:.6rem;">❌ Yanlış şifre</div>
+    </div>
+
+    <!-- İçerik -->
+    <div id="admin-content" style="display:none;">
+      <div style="display:grid;grid-template-columns:240px 1fr;gap:1.2rem;min-height:500px;">
+
+        <!-- Sol: Konuşma listesi -->
+        <div class="admin-card" style="padding:1rem;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.12em;text-transform:uppercase;color:#3a5a3a;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;">
+            Sohbetler
+            <span id="conv-total" style="background:rgba(57,255,20,.1);color:var(--neo);border-radius:20px;padding:.1rem .5rem;font-size:.75rem;">0</span>
+          </div>
+          <div id="conv-list" style="display:flex;flex-direction:column;gap:.5rem;max-height:460px;overflow-y:auto;">
+            <div style="text-align:center;padding:2rem 1rem;color:#2a3a2a;font-size:.85rem;">Henüz sohbet yok</div>
+          </div>
+        </div>
+
+        <!-- Sağ: Aktif sohbet -->
+        <div class="admin-card" style="padding:0;display:flex;flex-direction:column;overflow:hidden;">
+          <div id="admin-no-conv" style="flex:1;display:flex;align-items:center;justify-content:center;color:#2a3a2a;font-size:.9rem;">← Bir sohbet seç</div>
+          <div id="admin-chat-area" style="display:none;flex-direction:column;height:500px;">
+            <!-- Başlık -->
+            <div style="padding:.9rem 1.2rem;border-bottom:1px solid rgba(57,255,20,.12);display:flex;align-items:center;justify-content:space-between;background:#111811;border-radius:14px 14px 0 0;">
+              <div style="display:flex;align-items:center;gap:.7rem;">
+                <div style="width:32px;height:32px;border-radius:50%;background:rgba(57,255,20,.1);border:1px solid rgba(57,255,20,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;">👤</div>
+                <div>
+                  <div id="admin-conv-name" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;text-transform:uppercase;"></div>
+                  <div id="admin-conv-time" style="font-size:.68rem;color:#3a5a3a;"></div>
+                </div>
+              </div>
+              <button id="admin-close-btn" onclick="closeConversation()" class="btn-sm btn-red" style="font-size:.78rem;">🔒 Sohbeti Kapat</button>
+            </div>
+            <!-- Mesajlar -->
+            <div id="admin-messages" style="flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.5rem;"></div>
+            <!-- Emoji bar -->
+            <div style="padding:.4rem .8rem;border-top:1px solid rgba(57,255,20,.08);display:flex;gap:.4rem;">
+              <button class="chat-emoji-btn" onclick="adminSendEmoji('👋')">👋</button>
+              <button class="chat-emoji-btn" onclick="adminSendEmoji('🔥')">🔥</button>
+              <button class="chat-emoji-btn" onclick="adminSendEmoji('💪')">💪</button>
+              <button class="chat-emoji-btn" onclick="adminSendEmoji('🚀')">🚀</button>
+              <button class="chat-emoji-btn" onclick="adminSendEmoji('⚡')">⚡</button>
+              <button class="chat-emoji-btn" onclick="adminSendEmoji('❤️')">❤️</button>
+            </div>
+            <!-- Input -->
+            <div style="padding:.7rem;border-top:1px solid rgba(57,255,20,.12);display:flex;gap:.5rem;align-items:flex-end;">
+              <textarea id="admin-input" class="admin-msg-input" placeholder="Yanıt yaz..." rows="1" style="flex:1;resize:none;" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();adminSend();}"></textarea>
+              <button onclick="adminSend()" class="btn-solid" style="padding:.55rem 1rem;font-size:.85rem;white-space:nowrap;">Gönder</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FIREBASE + CHAT LOGIC ══ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, collection, doc, addDoc, updateDoc, onSnapshot, query, orderBy, serverTimestamp, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBsUay3K6_gjWtlRGoS-0xcpa05rV7ItR4",
+  authDomain: "nihat-portfolio-1f6fb.firebaseapp.com",
+  projectId: "nihat-portfolio-1f6fb",
+  storageBucket: "nihat-portfolio-1f6fb.firebasestorage.app",
+  messagingSenderId: "444760993364",
+  appId: "1:444760993364:web:eaebbbf200647c88b707c1"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let ADMIN_PASS = null;
+let currentConvId = null;
+let visitorConvId = localStorage.getItem('chat_conv_id') || null;
+let visitorName = localStorage.getItem('chat_name') || null;
+let convListener = null;
+let msgListener = null;
+let adminMsgListener = null;
+let adminConvListener = null;
+let activeAdminConv = null;
+
+// ──────────────── VISITOR CHAT ────────────────
+
+window.openChat = () => {
+  document.getElementById('chat-window').style.display = 'flex';
+  document.getElementById('chat-bubble').style.display = 'none';
+  if (visitorConvId && visitorName) {
+    showChatBody();
+    listenMessages();
+  }
+};
+
+window.toggleChat = () => {
+  const w = document.getElementById('chat-window');
+  const b = document.getElementById('chat-bubble');
+  if (w.style.display === 'flex') {
+    w.style.display = 'none';
+    b.style.display = 'flex';
+  } else {
+    w.style.display = 'flex';
+    b.style.display = 'none';
+    if (visitorConvId) listenMessages();
+  }
+};
+
+window.startChat = async () => {
+  const name = document.getElementById('visitor-name-input').value.trim();
+  if (!name) return;
+  visitorName = name;
+  localStorage.setItem('chat_name', name);
+
+  // Yeni konuşma oluştur
+  const convRef = await addDoc(collection(db, 'conversations'), {
+    visitorName: name,
+    createdAt: serverTimestamp(),
+    lastMessage: '',
+    lastAt: serverTimestamp(),
+    closed: false,
+    unreadAdmin: 0
+  });
+  visitorConvId = convRef.id;
+  localStorage.setItem('chat_conv_id', convRef.id);
+
+  // Karşılama mesajı
+  await addDoc(collection(db, 'conversations', convRef.id, 'messages'), {
+    text: `Merhaba ${name}! 👋 Mesajını bırak, en kısa sürede yanıtlayacağım.`,
+    sender: 'admin',
+    createdAt: serverTimestamp()
+  });
+
+  showChatBody();
+  listenMessages();
+};
+
+function showChatBody() {
+  document.getElementById('chat-name-screen').style.display = 'none';
+  document.getElementById('chat-body').style.display = 'flex';
+  document.getElementById('chat-body').style.flexDirection = 'column';
+}
+
+window.sendMessage = async () => {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text || !visitorConvId) return;
+
+  // Kapalı mı kontrol et
+  const convSnap = await getDoc(doc(db, 'conversations', visitorConvId));
+  if (convSnap.data()?.closed) {
+    appendSystemMsg('Bu sohbet kapatıldı.');
+    return;
+  }
+
+  input.value = '';
+  await addDoc(collection(db, 'conversations', visitorConvId, 'messages'), {
+    text, sender: 'visitor', visitorName,
+    createdAt: serverTimestamp()
+  });
+  await updateDoc(doc(db, 'conversations', visitorConvId), {
+    lastMessage: text, lastAt: serverTimestamp(),
+    unreadAdmin: (convSnap.data()?.unreadAdmin || 0) + 1
+  });
+};
+
+window.sendEmoji = (emoji) => {
+  document.getElementById('chat-input').value += emoji;
+  document.getElementById('chat-input').focus();
+};
+
+function listenMessages() {
+  if (msgListener) msgListener();
+  const q = query(collection(db, 'conversations', visitorConvId, 'messages'), orderBy('createdAt'));
+  msgListener = onSnapshot(q, snap => {
+    const el = document.getElementById('chat-messages');
+    el.innerHTML = '';
+    snap.forEach(d => {
+      const m = d.data();
+      appendChatBubble(el, m.text, m.sender === 'admin' ? 'admin' : 'visitor', m.createdAt);
+    });
+    el.scrollTop = el.scrollHeight;
+  });
+
+  // Sohbet kapatıldı mı dinle
+  onSnapshot(doc(db, 'conversations', visitorConvId), snap => {
+    if (snap.data()?.closed) appendSystemMsg('Sohbet kapatıldı.');
+  });
+}
+
+function appendChatBubble(container, text, type, ts) {
+  const wrap = document.createElement('div');
+  wrap.style.display = 'flex';
+  wrap.style.flexDirection = 'column';
+  wrap.style.alignItems = type === 'admin' ? 'flex-end' : 'flex-start';
+  const time = ts?.toDate ? ts.toDate().toLocaleTimeString('tr-TR', {hour:'2-digit',minute:'2-digit'}) : '';
+  wrap.innerHTML = `<div class="bubble ${type}">${escHtml(text)}</div><div class="bubble-time">${time}</div>`;
+  container.appendChild(wrap);
+}
+
+function appendSystemMsg(text) {
+  const el = document.getElementById('chat-messages');
+  const d = document.createElement('div');
+  d.style.cssText = 'text-align:center;font-size:.75rem;color:#3a5a3a;padding:.4rem;';
+  d.textContent = text;
+  el.appendChild(d);
+  el.scrollTop = el.scrollHeight;
+}
+
+// ──────────────── ADMIN ────────────────
+
+window.openAdmin = () => {
+  document.getElementById('admin-panel').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+};
+window.closeAdmin = () => {
+  document.getElementById('admin-panel').style.display = 'none';
+  document.body.style.overflow = '';
+  document.getElementById('admin-content').style.display = 'none';
+  document.getElementById('admin-login').style.display = 'block';
+  document.getElementById('admin-pass').value = '';
+  document.getElementById('pass-error').style.display = 'none';
+  if (adminConvListener) adminConvListener();
+  if (adminMsgListener) adminMsgListener();
+};
+
+window.checkAdmin = async () => {
+  const entered = document.getElementById('admin-pass').value;
+  const errEl = document.getElementById('pass-error');
+  errEl.style.display = 'none';
+  try {
+    const snap = await getDoc(doc(db, 'admin', 'config'));
+    const correct = snap.data()?.password;
+    if (entered === correct) {
+      document.getElementById('admin-login').style.display = 'none';
+      document.getElementById('admin-content').style.display = 'block';
+      loadConversations();
+    } else {
+      errEl.style.display = 'block';
+    }
+  } catch(e) {
+    errEl.textContent = '❌ Bağlantı hatası, tekrar dene.';
+    errEl.style.display = 'block';
+  }
+};
+
+function loadConversations() {
+  const q = query(collection(db, 'conversations'), orderBy('lastAt', 'desc'));
+  adminConvListener = onSnapshot(q, snap => {
+    const list = document.getElementById('conv-list');
+    document.getElementById('conv-total').textContent = snap.size;
+    if (snap.empty) {
+      list.innerHTML = '<div style="text-align:center;padding:2rem 1rem;color:#2a3a2a;font-size:.85rem;">Henüz sohbet yok</div>';
+      return;
+    }
+    list.innerHTML = '';
+    snap.forEach(d => {
+      const c = d.data();
+      const item = document.createElement('div');
+      item.className = 'conv-item' + (activeAdminConv === d.id ? ' active' : '');
+      item.onclick = () => openConversation(d.id, c.visitorName);
+      const closedBadge = c.closed ? '<span style="font-size:.65rem;color:#ef4444;margin-left:.3rem;">Kapalı</span>' : '';
+      const unread = c.unreadAdmin > 0 ? `<div class="conv-unread">${c.unreadAdmin}</div>` : '';
+      item.innerHTML = `
+        <div class="conv-avatar">👤</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.92rem;text-transform:uppercase;display:flex;align-items:center;gap:.3rem;">${escHtml(c.visitorName)}${closedBadge}</div>
+          <div style="font-size:.72rem;color:#3a5a3a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escHtml(c.lastMessage || '...')}</div>
+        </div>
+        ${unread}
+      `;
+      list.appendChild(item);
+    });
+  });
+}
+
+function openConversation(id, name) {
+  activeAdminConv = id;
+  document.getElementById('admin-no-conv').style.display = 'none';
+  document.getElementById('admin-chat-area').style.display = 'flex';
+  document.getElementById('admin-conv-name').textContent = name;
+
+  // Unread sıfırla
+  updateDoc(doc(db, 'conversations', id), { unreadAdmin: 0 });
+
+  if (adminMsgListener) adminMsgListener();
+  const q = query(collection(db, 'conversations', id, 'messages'), orderBy('createdAt'));
+  adminMsgListener = onSnapshot(q, snap => {
+    const el = document.getElementById('admin-messages');
+    el.innerHTML = '';
+    snap.forEach(d => {
+      const m = d.data();
+      const wrap = document.createElement('div');
+      wrap.className = 'admin-bubble-wrap';
+      wrap.style.alignItems = m.sender === 'admin' ? 'flex-end' : 'flex-start';
+      const time = m.createdAt?.toDate ? m.createdAt.toDate().toLocaleTimeString('tr-TR', {hour:'2-digit',minute:'2-digit'}) : '';
+      wrap.innerHTML = `<div class="admin-msg ${m.sender === 'admin' ? 'admin' : 'visitor'}">${escHtml(m.text)}</div><div style="font-size:.65rem;color:#3a5a3a;margin-bottom:.3rem;">${time}</div>`;
+      el.appendChild(wrap);
+    });
+    el.scrollTop = el.scrollHeight;
+  });
+
+  // Kapalı kontrolü
+  onSnapshot(doc(db, 'conversations', id), snap => {
+    const closed = snap.data()?.closed;
+    document.getElementById('admin-close-btn').style.display = closed ? 'none' : 'block';
+    const t = snap.data()?.createdAt?.toDate?.();
+    if (t) document.getElementById('admin-conv-time').textContent = t.toLocaleDateString('tr-TR');
+  });
+
+  loadConversations(); // refresh active state
+}
+
+window.adminSend = async () => {
+  if (!activeAdminConv) return;
+  const input = document.getElementById('admin-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  await addDoc(collection(db, 'conversations', activeAdminConv, 'messages'), {
+    text, sender: 'admin', createdAt: serverTimestamp()
+  });
+  await updateDoc(doc(db, 'conversations', activeAdminConv), {
+    lastMessage: text, lastAt: serverTimestamp()
+  });
+};
+
+window.adminSendEmoji = (emoji) => {
+  document.getElementById('admin-input').value += emoji;
+  document.getElementById('admin-input').focus();
+};
+
+window.closeConversation = async () => {
+  if (!activeAdminConv) return;
+  if (!confirm('Bu sohbeti kapatmak istiyor musun?')) return;
+  await addDoc(collection(db, 'conversations', activeAdminConv, 'messages'), {
+    text: '🔒 Sohbet kapatıldı.', sender: 'admin', createdAt: serverTimestamp()
+  });
+  await updateDoc(doc(db, 'conversations', activeAdminConv), {
+    closed: true, lastMessage: 'Sohbet kapatıldı', lastAt: serverTimestamp()
+  });
+};
+
+// ──────────────── YARDIMCI ────────────────
+
+window.escHtml = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+// Scroll reveal
+const revObs = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('shown'); }), {threshold:.1});
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+// Skill bars
+const skillObs = new IntersectionObserver(e => { e.forEach(x => { if (x.isIntersecting) x.target.querySelectorAll('.skill-fill').forEach(f => { f.style.transform = `scaleX(${f.dataset.w||0.7})`; f.classList.add('active'); }); }); }, {threshold:.2});
+document.querySelectorAll('#skills-container').forEach(el => skillObs.observe(el));
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => { const t = document.querySelector(a.getAttribute('href')); if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});} });
+});
+
+// Responsive
+function fixGrids() {
+  const mob = window.innerWidth < 768;
+  ['about-grid','contact-grid'].forEach(id => { const el = document.getElementById(id); if(el) el.style.gridTemplateColumns = mob ? '1fr' : '1fr 1fr'; });
+  const hc = document.getElementById('hero-card'); if(hc) hc.style.display = mob ? 'none' : 'block';
+  const hg = document.getElementById('hero-grid'); if(hg) hg.style.gridTemplateColumns = mob ? '1fr' : '1fr auto';
+}
+window.addEventListener('resize', fixGrids); fixGrids();
+
+// Mevcut sohbet varsa yükle
+if (visitorConvId && visitorName) {
+  showChatBody();
+  listenMessages();
+}
+</script>
+</body>
+</html>
