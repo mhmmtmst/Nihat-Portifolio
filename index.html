@@ -55,6 +55,16 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .reveal.shown{opacity:1;transform:translateY(0);}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 
+
+/* ── MOBİL ── */
+@media(max-width:640px){
+  #chat-window{width:calc(100vw - 2rem);right:1rem;bottom:5rem;height:70vh;}
+  #admin-panel .admin-inner{padding:0 .8rem 3rem;}
+  #admin-content > div{grid-template-columns:1fr!important;}
+  #admin-chat-area{height:400px!important;}
+  .conv-list-wrap{max-height:200px;}
+}
+
 /* ── CHAT WIDGET ── */
 #chat-bubble{position:fixed;bottom:2rem;right:2rem;z-index:1000;width:58px;height:58px;border-radius:50%;background:var(--neo);box-shadow:0 0 24px rgba(57,255,20,.5);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.5rem;transition:transform .2s,box-shadow .2s;border:none;}
 #chat-bubble:hover{transform:scale(1.1);box-shadow:0 0 40px rgba(57,255,20,.7);}
@@ -116,7 +126,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
       <a href="#sertifikalar" class="nav-link">Kurslar</a>
       <a href="#hedefler" class="nav-link">Hedefler</a>
       <a href="#iletisim" class="nav-link">İletişim</a>
-      <button onclick="openAdmin()" style="background:rgba(57,255,20,.08);border:1px solid rgba(57,255,20,.2);color:var(--neo);padding:.35rem .9rem;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;">⚙ Admin</button>
+      <!-- admin gizli -->
     </div>
   </div>
 </nav>
@@ -178,7 +188,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
     <div style="position:relative;margin-bottom:2.5rem;"><span class="sec-num">01</span><div class="sec-label">Hakkımda</div><h2 class="sec-title">Kim <em>Olduğum</em></h2></div>
     <div class="card reveal" style="padding:1.8rem 2rem;margin-bottom:2rem;display:flex;flex-wrap:wrap;gap:2rem;align-items:center;">
       <div style="flex:1;min-width:200px;"><div style="font-size:.7rem;color:#3a5a3a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.4rem;">Üniversite</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;color:#e2e8f0;">Hitit Üniversitesi</div><div style="font-size:.86rem;color:#5a7a5a;">Bilişim Sistemleri ve Teknolojileri</div></div>
-      <div style="flex:1;min-width:140px;"><div style="font-size:.7rem;color:#3a5a3a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.4rem;">Dönem</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;color:var(--neo);">1. Sınıf</div><div style="font-size:.86rem;color:#5a7a5a;">2024 – Devam ediyor</div></div>
+      <div style="flex:1;min-width:140px;"><div style="font-size:.7rem;color:#3a5a3a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.4rem;">Dönem</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;color:var(--neo);">1. Sınıf</div><div style="font-size:.86rem;color:#5a7a5a;">2025 – Devam ediyor</div></div>
       <div style="flex:1;min-width:140px;"><div style="font-size:.7rem;color:#3a5a3a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.4rem;">Hedef</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;color:#e2e8f0;">Full-Stack Dev</div><div style="font-size:.86rem;color:#5a7a5a;">Web & Uygulama</div></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;" id="about-grid">
@@ -252,7 +262,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
     <div style="position:relative;margin-bottom:2.5rem;"><span class="sec-num">04</span><div class="sec-label">Hedefler & Yol Haritası</div><h2 class="sec-title">Nereye <em>Gidiyorum</em></h2></div>
     <div style="max-width:650px;position:relative;padding-left:56px;">
       <div class="tl-line"></div>
-      <div style="display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:2.2rem;" class="reveal"><div class="tl-dot done" style="margin-left:-56px;flex-shrink:0;">✓</div><div class="card" style="flex:1;padding:1.3rem 1.5rem;"><div style="font-size:.68rem;color:var(--neo);letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.3rem;">2024 · Tamamlandı</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;margin-bottom:.4rem;">Üniversite Başlangıcı</div><p style="font-size:.85rem;color:#5a7a5a;line-height:1.7;">Hitit Üniversitesi BST bölümüne başladım. Temelleri sağlam atmak için HTML/CSS ve Python'a odaklandım.</p></div></div>
+      <div style="display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:2.2rem;" class="reveal"><div class="tl-dot done" style="margin-left:-56px;flex-shrink:0;">✓</div><div class="card" style="flex:1;padding:1.3rem 1.5rem;"><div style="font-size:.68rem;color:var(--neo);letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.3rem;">2025 · Tamamlandı</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;margin-bottom:.4rem;">Üniversite Başlangıcı</div><p style="font-size:.85rem;color:#5a7a5a;line-height:1.7;">Hitit Üniversitesi BST bölümüne başladım. Temelleri sağlam atmak için HTML/CSS ve Python'a odaklandım.</p></div></div>
       <div style="display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:2.2rem;" class="reveal d1"><div class="tl-dot now" style="margin-left:-56px;flex-shrink:0;">▶</div><div class="card" style="flex:1;padding:1.3rem 1.5rem;border-color:rgba(57,255,20,.25);"><div style="font-size:.68rem;color:var(--neo);letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.3rem;">2025 · Şu An</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;margin-bottom:.4rem;">Udemy Kursları & İlk Projeler</div><p style="font-size:.85rem;color:#5a7a5a;line-height:1.7;">Python, C++, HTML/CSS kurslarını tamamlamak. İlk gerçek projemi hayata geçirmek ve para kazanmaya başlamak.</p></div></div>
       <div style="display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:2.2rem;" class="reveal d2"><div class="tl-dot" style="margin-left:-56px;flex-shrink:0;">3</div><div class="card" style="flex:1;padding:1.3rem 1.5rem;"><div style="font-size:.68rem;color:#5a7a5a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.3rem;">2026 · Hedef</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;margin-bottom:.4rem;">React & Backend Öğren</div><p style="font-size:.85rem;color:#5a7a5a;line-height:1.7;">Frontend'de React, backend'de Node.js veya Django öğrenmek. Full-Stack projelere başlamak.</p></div></div>
       <div style="display:flex;gap:1.2rem;align-items:flex-start;" class="reveal d3"><div class="tl-dot" style="margin-left:-56px;flex-shrink:0;">4</div><div class="card" style="flex:1;padding:1.3rem 1.5rem;"><div style="font-size:.68rem;color:#5a7a5a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.3rem;">2027+ · Vizyon</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;margin-bottom:.4rem;">Kendi Ürününü Çıkar</div><p style="font-size:.85rem;color:#5a7a5a;line-height:1.7;">Bağımsız bir ürün veya SaaS çıkarmak. Yazılımla geçimini sağlamak ve sektörde nam salmak.</p></div></div>
@@ -283,8 +293,8 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;" id="contact-grid">
       <div class="reveal"><p style="font-size:1rem;line-height:1.85;color:#5a7a5a;margin-bottom:1.2rem;">İş birliği, proje fikri ya da sadece merhaba demek için aşağıdan ulaşabilirsin. <span style="color:#e2e8f0;">Her mesaja bakarım.</span></p><button onclick="openChat()" class="btn-solid" style="margin-top:.5rem;">💬 Sohbet Başlat</button></div>
       <div style="display:flex;flex-direction:column;gap:.9rem;" class="reveal d1">
-        <a href="mailto:mhmmtmesut@gmail.com" class="contact-item"><div class="icon-wrap" style="width:44px;height:44px;border-radius:10px;font-size:1.2rem;">✉️</div><div style="flex:1;"><div style="font-size:.68rem;color:#3a5a3a;letter-spacing:.1em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.15rem;">E-Posta</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;">mhmmtmesut@gmail.com</div></div><span style="color:var(--neo);">→</span></a>
-        <a href="https://instagram.com/mhmmtmst" target="_blank" rel="noopener" class="contact-item"><div class="icon-wrap" style="width:44px;height:44px;border-radius:10px;font-size:1.2rem;">📸</div><div style="flex:1;"><div style="font-size:.68rem;color:#3a5a3a;letter-spacing:.1em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.15rem;">Instagram</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;">@mhmmtmst</div></div><span style="color:var(--neo);">→</span></a>
+        <a href="https://github.com/mhmmtmst" target="_blank" rel="noopener" class="contact-item"><div class="icon-wrap" style="width:44px;height:44px;border-radius:10px;"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="var(--neo)"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg></div><div style="flex:1;"><div style="font-size:.68rem;color:#3a5a3a;letter-spacing:.1em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.15rem;">GitHub</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;">mhmmtmst</div></div><span style="color:var(--neo);">→</span></a>
+        <a href="https://instagram.com/mhmmtmst" target="_blank" rel="noopener" class="contact-item"><div class="icon-wrap" style="width:44px;height:44px;border-radius:10px;"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--neo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div><div style="flex:1;"><div style="font-size:.68rem;color:#3a5a3a;letter-spacing:.1em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.15rem;">Instagram</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;">@mhmmtmst</div></div><span style="color:var(--neo);">→</span></a>
         <a href="https://www.linkedin.com/in/muhammet-nihat-mesut" target="_blank" rel="noopener" class="contact-item"><div class="icon-wrap" style="width:44px;height:44px;border-radius:10px;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div><div style="flex:1;"><div style="font-size:.68rem;color:#3a5a3a;letter-spacing:.1em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.15rem;">LinkedIn</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;">Muhammet Nihat Mesut</div></div><span style="color:var(--neo);">→</span></a>
       </div>
     </div>
@@ -293,7 +303,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
 <footer style="background:#080a08;border-top:1px solid rgba(57,255,20,.07);padding:1.8rem 0;">
   <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;">
-    <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:#2a3a2a;">© 2026 Muhammet Nihat Mesut</span>
+    <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:#2a3a2a;"><span id="secret-admin" onclick="secretClick()" style="cursor:default;user-select:none;">© 2026 Muhammet Nihat Mesut</span></span>
     <span style="font-size:.78rem;color:#1a2a1a;">Yazılım yolculuğu devam ediyor <span style="color:var(--neo);">⚡</span></span>
   </div>
 </footer>
@@ -311,10 +321,8 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
     <div style="display:flex;align-items:center;gap:.7rem;">
       <div style="width:34px;height:34px;border-radius:50%;background:rgba(57,255,20,.12);border:1.5px solid rgba(57,255,20,.3);display:flex;align-items:center;justify-content:center;font-size:1rem;">🧑‍💻</div>
       <div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:.04em;">Nihat Mesut</div>
-        <div style="font-size:.68rem;color:#5a7a5a;display:flex;align-items:center;gap:.3rem;" id="online-status">
-          <span style="width:6px;height:6px;border-radius:50%;background:var(--neo);box-shadow:0 0 5px var(--neo);display:inline-block;"></span> Çevrimiçi
-        </div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:.04em;">Muhammet Nihat</div>
+        <div style="font-size:.68rem;color:#5a7a5a;display:flex;align-items:center;gap:.3rem;" id="online-status"><span id="status-dot" style="width:6px;height:6px;border-radius:50%;display:inline-block;"></span> <span id="status-text">Kontrol ediliyor...</span></div>
       </div>
     </div>
     <button onclick="toggleChat()" style="background:none;border:none;color:#5a7a5a;cursor:pointer;font-size:1.2rem;padding:.2rem;">✕</button>
@@ -388,7 +396,19 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
         <!-- Sağ: Aktif sohbet -->
         <div class="admin-card" style="padding:0;display:flex;flex-direction:column;overflow:hidden;">
-          <div id="admin-no-conv" style="flex:1;display:flex;align-items:center;justify-content:center;color:#2a3a2a;font-size:.9rem;">← Bir sohbet seç</div>
+          <div id="admin-status-bar" style="display:none;background:#0d110d;border:1px solid rgba(57,255,20,.15);border-radius:10px;padding:.8rem 1.2rem;margin-bottom:1rem;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:#3a5a3a;margin-bottom:.7rem;">Durumunu Seç</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+          <button onclick="setStatus(true,'💻 Kod yazıyor')" class="btn-sm btn-neo" style="font-size:.75rem;">💻 Kod yazıyor</button>
+          <button onclick="setStatus(true,'☕ Kahve molasında')" class="btn-sm btn-gray" style="font-size:.75rem;">☕ Kahve molası</button>
+          <button onclick="setStatus(true,'🎮 FC oynuyor')" class="btn-sm btn-gray" style="font-size:.75rem;">🎮 FC oynuyor</button>
+          <button onclick="setStatus(true,'📚 Ders çalışıyor')" class="btn-sm btn-gray" style="font-size:.75rem;">📚 Ders çalışıyor</button>
+          <button onclick="setStatus(true,'🎧 Müzik dinliyor')" class="btn-sm btn-gray" style="font-size:.75rem;">🎧 Müzik</button>
+          <button onclick="setStatus(false,'')" class="btn-sm btn-red" style="font-size:.75rem;">😴 Çevrimdışı</button>
+        </div>
+      </div>
+
+      <div id="admin-no-conv" style="flex:1;display:flex;align-items:center;justify-content:center;color:#2a3a2a;font-size:.9rem;">← Bir sohbet seç</div>
           <div id="admin-chat-area" style="display:none;flex-direction:column;height:500px;">
             <!-- Başlık -->
             <div style="padding:.9rem 1.2rem;border-bottom:1px solid rgba(57,255,20,.12);display:flex;align-items:center;justify-content:space-between;background:#111811;border-radius:14px 14px 0 0;">
@@ -516,10 +536,15 @@ window.sendMessage = async () => {
   const text = input.value.trim();
   if (!text || !visitorConvId) return;
 
-  // Kapalı mı kontrol et
   const convSnap = await getDoc(doc(db, 'conversations', visitorConvId));
   if (convSnap.data()?.closed) {
-    appendSystemMsg('Bu sohbet kapatıldı.');
+    // Sohbet kapalı - yeni sohbet başlat
+    localStorage.removeItem('chat_conv_id');
+    visitorConvId = null;
+    document.getElementById('chat-body').style.display = 'none';
+    document.getElementById('chat-name-screen').style.display = 'flex';
+    document.getElementById('chat-name-screen').style.flexDirection = 'column';
+    document.getElementById('chat-messages').innerHTML = '';
     return;
   }
 
@@ -554,7 +579,12 @@ function listenMessages() {
 
   // Sohbet kapatıldı mı dinle
   onSnapshot(doc(db, 'conversations', visitorConvId), snap => {
-    if (snap.data()?.closed) appendSystemMsg('Sohbet kapatıldı.');
+    if (snap.data()?.closed) {
+      appendSystemMsg('Bu sohbet kapatıldı. Yeni sohbet başlatmak için sayfayı yenile.');
+      // Yeni sohbet için localStorage temizle
+      localStorage.removeItem('chat_conv_id');
+      visitorConvId = null;
+    }
   });
 }
 
@@ -604,6 +634,7 @@ window.checkAdmin = async () => {
     if (entered === correct) {
       document.getElementById('admin-login').style.display = 'none';
       document.getElementById('admin-content').style.display = 'block';
+      document.getElementById('admin-status-bar').style.display = 'block';
       loadConversations();
     } else {
       errEl.style.display = 'block';
@@ -712,6 +743,66 @@ window.closeConversation = async () => {
 };
 
 // ──────────────── YARDIMCI ────────────────
+
+// ── ONLINE STATUS ──────────────────────────────
+const funStatuses = [
+  { text: '☕ Kahve molasında', color: '#fbbf24', dot: '#fbbf24' },
+  { text: '💻 Kod yazıyor', color: 'var(--neo)', dot: 'var(--neo)' },
+  { text: '🎮 FC oynuyor', color: '#a78bfa', dot: '#a78bfa' },
+  { text: '📚 Ders çalışıyor', color: '#60a5fa', dot: '#60a5fa' },
+  { text: '🎧 Müzik dinliyor', color: '#f472b6', dot: '#f472b6' },
+  { text: '😴 Uyuyor olabilir', color: '#6b7280', dot: '#6b7280' },
+];
+
+async function updateOnlineStatus() {
+  try {
+    const snap = await getDoc(doc(db, 'admin', 'status'));
+    const data = snap.data();
+    const dotEl = document.getElementById('status-dot');
+    const textEl = document.getElementById('status-text');
+    if (!dotEl || !textEl) return;
+
+    if (data?.online) {
+      dotEl.style.background = 'var(--neo)';
+      dotEl.style.boxShadow = '0 0 5px var(--neo)';
+      textEl.style.color = 'var(--neo)';
+      textEl.textContent = data.statusText || 'Çevrimiçi';
+    } else {
+      const last = data?.lastSeen?.toDate?.();
+      const diff = last ? Math.floor((Date.now() - last) / 60000) : null;
+      dotEl.style.background = '#6b7280';
+      dotEl.style.boxShadow = 'none';
+      textEl.style.color = '#5a7a5a';
+      if (diff !== null && diff < 60) {
+        textEl.textContent = diff < 2 ? 'Az önce görüldü' : diff + ' dk önce görüldü';
+      } else {
+        textEl.textContent = 'Şu an müsait değil';
+      }
+    }
+  } catch(e) {
+    const textEl = document.getElementById('status-text');
+    if (textEl) { textEl.textContent = 'Mesaj bırakabilirsin 👋'; }
+  }
+}
+updateOnlineStatus();
+setInterval(updateOnlineStatus, 30000);
+
+// ── GİZLİ ADMİN KISAYOLU - footer'a 5 kez tıkla
+let secretCount = 0, secretTimer;
+window.secretClick = () => {
+  secretCount++;
+  clearTimeout(secretTimer);
+  secretTimer = setTimeout(() => { secretCount = 0; }, 2000);
+  if (secretCount >= 5) { secretCount = 0; openAdmin(); }
+};
+
+window.setStatus = async (online, statusText) => {
+  try {
+    await setDoc(doc(db, 'admin', 'status'), {
+      online, statusText, lastSeen: serverTimestamp()
+    });
+  } catch(e) { console.error(e); }
+};
 
 window.escHtml = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
