@@ -262,7 +262,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
     <div style="position:relative;margin-bottom:2.5rem;"><span class="sec-num">04</span><div class="sec-label">Hedefler & Yol Haritası</div><h2 class="sec-title">Nereye <em>Gidiyorum</em></h2></div>
     <div style="max-width:650px;position:relative;padding-left:56px;">
       <div class="tl-line"></div>
-      <div style="display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:2.2rem;" class="reveal"><div class="tl-dot done" style="margin-left:-56px;flex-shrink:0;">✓</div><div class="card" style="flex:1;padding:1.3rem 1.5rem;"><div style="font-size:.68rem;color:var(--neo);letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.3rem;">2024 · Tamamlandı</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;margin-bottom:.4rem;">Üniversite Başlangıcı</div><p style="font-size:.85rem;color:#5a7a5a;line-height:1.7;">Hitit Üniversitesi BST bölümüne başladım. Temelleri sağlam atmak için HTML/CSS ve Python'a odaklandım.</p></div></div>
+      <div style="display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:2.2rem;" class="reveal"><div class="tl-dot done" style="margin-left:-56px;flex-shrink:0;">✓</div><div class="card" style="flex:1;padding:1.3rem 1.5rem;"><div style="font-size:.68rem;color:var(--neo);letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.3rem;">2025 · Tamamlandı</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;margin-bottom:.4rem;">Üniversite Başlangıcı</div><p style="font-size:.85rem;color:#5a7a5a;line-height:1.7;">Hitit Üniversitesi BST bölümüne başladım. Temelleri sağlam atmak için HTML/CSS ve Python'a odaklandım.</p></div></div>
       <div style="display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:2.2rem;" class="reveal d1"><div class="tl-dot now" style="margin-left:-56px;flex-shrink:0;">▶</div><div class="card" style="flex:1;padding:1.3rem 1.5rem;border-color:rgba(57,255,20,.25);"><div style="font-size:.68rem;color:var(--neo);letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.3rem;">2025 · Şu An</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;margin-bottom:.4rem;">Udemy Kursları & İlk Projeler</div><p style="font-size:.85rem;color:#5a7a5a;line-height:1.7;">Python, C++, HTML/CSS kurslarını tamamlamak. İlk gerçek projemi hayata geçirmek ve para kazanmaya başlamak.</p></div></div>
       <div style="display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:2.2rem;" class="reveal d2"><div class="tl-dot" style="margin-left:-56px;flex-shrink:0;">3</div><div class="card" style="flex:1;padding:1.3rem 1.5rem;"><div style="font-size:.68rem;color:#5a7a5a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.3rem;">2026 · Hedef</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;margin-bottom:.4rem;">React & Backend Öğren</div><p style="font-size:.85rem;color:#5a7a5a;line-height:1.7;">Frontend'de React, backend'de Node.js veya Django öğrenmek. Full-Stack projelere başlamak.</p></div></div>
       <div style="display:flex;gap:1.2rem;align-items:flex-start;" class="reveal d3"><div class="tl-dot" style="margin-left:-56px;flex-shrink:0;">4</div><div class="card" style="flex:1;padding:1.3rem 1.5rem;"><div style="font-size:.68rem;color:#5a7a5a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.3rem;">2027+ · Vizyon</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;margin-bottom:.4rem;">Kendi Ürününü Çıkar</div><p style="font-size:.85rem;color:#5a7a5a;line-height:1.7;">Bağımsız bir ürün veya SaaS çıkarmak. Yazılımla geçimini sağlamak ve sektörde nam salmak.</p></div></div>
@@ -448,7 +448,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 <!-- ══ FIREBASE + CHAT LOGIC ══ -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, collection, doc, addDoc, updateDoc, onSnapshot, query, orderBy, serverTimestamp, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp, getDoc, setDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBsUay3K6_gjWtlRGoS-0xcpa05rV7ItR4",
@@ -729,6 +729,23 @@ window.adminSend = async () => {
 window.adminSendEmoji = (emoji) => {
   document.getElementById('admin-input').value += emoji;
   document.getElementById('admin-input').focus();
+};
+
+window.deleteConversation = async (id) => {
+  if (!confirm('Bu sohbeti silmek istediğine emin misin?')) return;
+  try {
+    // Alt mesajları sil
+    const msgs = await getDocs(collection(db, 'conversations', id, 'messages'));
+    for (const m of msgs.docs) await deleteDoc(doc(db, 'conversations', id, 'messages', m.id));
+    // Konuşmayı sil
+    await deleteDoc(doc(db, 'conversations', id));
+    // Eğer aktif sohbetse kapat
+    if (activeAdminConv === id) {
+      activeAdminConv = null;
+      document.getElementById('admin-chat-area').style.display = 'none';
+      document.getElementById('admin-no-conv').style.display = 'flex';
+    }
+  } catch(e) { console.error(e); alert('Silme hatası: ' + e.message); }
 };
 
 window.closeConversation = async () => {
