@@ -121,13 +121,13 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 <div id="intro-overlay" style="position:fixed;inset:0;z-index:99999;background:#080a08;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;transition:opacity .8s ease,visibility .8s ease;padding:1rem;">
   <div style="font-family:'Courier New',monospace;font-size:clamp(1rem,2.4vw,1.3rem);line-height:1.9;color:#5a7a5a;width:100%;max-width:640px;">
     <div id="intro-l1" style="visibility:hidden;"><span style="color:var(--neo);">$</span> <span id="intro-cmd1"></span></div>
-    <div id="intro-l2" style="visibility:hidden;color:#3a7a3a;font-size:.9em;"><span id="intro-cmd2"></span></div>
+    <div id="intro-l2" style="display:none;"><span id="intro-cmd2"></span></div>
     <div id="intro-l3" style="visibility:hidden;margin-top:.6rem;"><span style="color:var(--neo);">$</span> <span id="intro-cmd3"></span></div>
     <div id="intro-l4" style="visibility:hidden;font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,6vw,3.2rem);font-weight:900;letter-spacing:-.01em;text-transform:uppercase;line-height:1.1;margin-top:.8rem;position:relative;">
       <span class="intro-name-glow" style="color:#e2e8f0 !important;-webkit-text-fill-color:#e2e8f0;text-shadow:0 0 12px rgba(57,255,20,.2);">Muhammet </span><span class="intro-name-stroke" style="color:transparent !important;-webkit-text-fill-color:transparent;-webkit-text-stroke:1.5px var(--neo);text-shadow:0 0 16px rgba(57,255,20,.6);position:relative;">Nihat</span><span class="intro-name-glow" style="color:#e2e8f0 !important;-webkit-text-fill-color:#e2e8f0;text-shadow:0 0 12px rgba(57,255,20,.2);"> Mesut</span>
       <div id="scan-line" style="position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--neo),transparent);box-shadow:0 0 8px var(--neo);opacity:0;pointer-events:none;"></div>
     </div>
-    <div id="intro-l5" style="visibility:hidden;color:#3a5a3a;font-size:.9em;margin-top:.4rem;font-family:'Courier New',monospace;">// dual_</div>
+    <div id="intro-l5" style="display:none;"></div>
     <div id="intro-bar-container" style="margin-top:1.4rem;opacity:0;transition:opacity .3s;">
       <div style="display:flex;justify-content:space-between;font-family:'Courier New',monospace;font-size:.78em;color:#3a5a3a;margin-bottom:.5rem;">
         <span><span style="color:var(--neo);">$</span> connecting...</span>
@@ -1168,8 +1168,8 @@ async function runIntro() {
   await new Promise(r => setTimeout(r, 100));
   await typeInto(document.getElementById('intro-cmd1'), 'whoami', 45);
   await new Promise(r => setTimeout(r, 100));
-  document.getElementById('intro-l2').style.visibility = 'visible';
-  await typeInto(document.getElementById('intro-cmd2'), '> BST @ Hitit Üni · 1. Sınıf', 20);
+  // l2 atlandı
+  // l2 atlandı
   await new Promise(r => setTimeout(r, 130));
   await typeInto(document.getElementById('intro-cmd3'), 'cat name.txt', 32);
   await new Promise(r => setTimeout(r, 100));
@@ -1187,8 +1187,7 @@ async function runIntro() {
   }
 
   await new Promise(r => setTimeout(r, 350));
-  document.getElementById('intro-l5').style.visibility = 'visible';
-  document.getElementById('intro-l5').style.animation = 'introFadeIn .3s ease forwards';
+  // l5 atlandı
 
   // Connecting bar başlat
   await new Promise(r => setTimeout(r, 200));
