@@ -415,11 +415,12 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
     <!-- Giriş -->
     <div id="admin-login" class="admin-card">
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:#e2e8f0;margin-bottom:1rem;">🔐 Admin Girişi</div>
-      <div style="display:flex;gap:.8rem;">
-        <input type="password" id="admin-pass" class="msg-input" placeholder="Şifre..." onkeydown="if(event.key==='Enter')checkAdmin()">
-        <button onclick="checkAdmin()" class="btn-solid" style="white-space:nowrap;">Giriş</button>
+      <div style="display:flex;flex-direction:column;gap:.7rem;">
+        <input type="email" id="admin-email" class="msg-input" placeholder="E-posta..." autocomplete="username">
+        <input type="password" id="admin-pass" class="msg-input" placeholder="Şifre..." autocomplete="current-password" onkeydown="if(event.key==='Enter')checkAdmin()">
+        <button onclick="checkAdmin()" class="btn-solid">Giriş Yap</button>
       </div>
-      <div id="pass-error" style="display:none;color:#ef4444;font-size:.8rem;margin-top:.6rem;">❌ Yanlış şifre</div>
+      <div id="pass-error" style="display:none;color:#ef4444;font-size:.8rem;margin-top:.6rem;">❌ Hatalı giriş</div>
     </div>
 
     <!-- İçerik -->
@@ -555,6 +556,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp, getDoc, setDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBsUay3K6_gjWtlRGoS-0xcpa05rV7ItR4",
@@ -567,6 +569,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 let ADMIN_PASS = null;
 let currentConvId = null;
@@ -605,6 +608,16 @@ window.toggleChat = () => {
 window.startChat = async () => {
   const name = document.getElementById('visitor-name-input').value.trim();
   if (!name) return;
+  if (name.length > 30) { alert('İsim çok uzun (max 30 karakter)'); return; }
+
+  // Yeni sohbet başlatma cooldown: 60 saniyede 1
+  const lastChat = parseInt(localStorage.getItem('last_chat_time') || '0');
+  if (Date.now() - lastChat < 60000) {
+    alert('Yeni sohbet başlatmak için biraz bekle.');
+    return;
+  }
+  localStorage.setItem('last_chat_time', Date.now().toString());
+
   visitorName = name;
   localStorage.setItem('chat_name', name);
 
@@ -642,9 +655,23 @@ window.sendMessage = async () => {
   const text = input.value.trim();
   if (!text || !visitorConvId) return;
 
+  // Flood koruması: 5 saniyede 1 mesaj
+  const lastSent = parseInt(localStorage.getItem('last_msg_time') || '0');
+  const now = Date.now();
+  if (now - lastSent < 5000) {
+    const wait = Math.ceil((5000 - (now - lastSent)) / 1000);
+    appendSystemMsg(`⏳ Çok hızlı yazıyorsun, ${wait} saniye bekle.`);
+    return;
+  }
+
+  // Mesaj uzunluk sınırı
+  if (text.length > 500) {
+    appendSystemMsg('⚠️ Mesaj çok uzun (max 500 karakter).');
+    return;
+  }
+
   const convSnap = await getDoc(doc(db, 'conversations', visitorConvId));
   if (convSnap.data()?.closed) {
-    // Sohbet kapalı - yeni sohbet başlat
     localStorage.removeItem('chat_conv_id');
     visitorConvId = null;
     document.getElementById('chat-body').style.display = 'none';
@@ -654,6 +681,7 @@ window.sendMessage = async () => {
     return;
   }
 
+  localStorage.setItem('last_msg_time', now.toString());
   input.value = '';
   await addDoc(collection(db, 'conversations', visitorConvId, 'messages'), {
     text, sender: 'visitor', visitorName,
@@ -748,34 +776,46 @@ window.openAdmin = () => {
   document.getElementById('admin-panel').style.display = 'block';
   document.body.style.overflow = 'hidden';
 };
-window.closeAdmin = () => {
+window.closeAdmin = async () => {
   document.getElementById('admin-panel').style.display = 'none';
   document.body.style.overflow = '';
   document.getElementById('admin-content').style.display = 'none';
   document.getElementById('admin-login').style.display = 'block';
   document.getElementById('admin-pass').value = '';
+  const emailEl = document.getElementById('admin-email');
+  if (emailEl) emailEl.value = '';
   document.getElementById('pass-error').style.display = 'none';
   if (adminConvListener) adminConvListener();
   if (adminMsgListener) adminMsgListener();
+  try { await signOut(auth); } catch(e) {}
 };
 
 window.checkAdmin = async () => {
-  const entered = document.getElementById('admin-pass').value;
+  const email = document.getElementById('admin-email').value.trim();
+  const pass = document.getElementById('admin-pass').value;
   const errEl = document.getElementById('pass-error');
   errEl.style.display = 'none';
+
+  if (!email || !pass) {
+    errEl.textContent = '❌ E-posta ve şifre gerekli';
+    errEl.style.display = 'block';
+    return;
+  }
+
   try {
-    const snap = await getDoc(doc(db, 'admin', 'config'));
-    const correct = snap.data()?.password;
-    if (entered === correct) {
-      document.getElementById('admin-login').style.display = 'none';
-      document.getElementById('admin-content').style.display = 'block';
-      document.getElementById('admin-status-bar').style.display = 'block';
-      loadConversations();
-    } else {
-      errEl.style.display = 'block';
-    }
+    await signInWithEmailAndPassword(auth, email, pass);
+    document.getElementById('admin-login').style.display = 'none';
+    document.getElementById('admin-content').style.display = 'block';
+    document.getElementById('admin-status-bar').style.display = 'block';
+    loadConversations();
   } catch(e) {
-    errEl.textContent = '❌ Bağlantı hatası, tekrar dene.';
+    if (e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found') {
+      errEl.textContent = '❌ Hatalı e-posta veya şifre';
+    } else if (e.code === 'auth/too-many-requests') {
+      errEl.textContent = '❌ Çok fazla deneme. Birkaç dakika bekle.';
+    } else {
+      errEl.textContent = '❌ Hata: ' + (e.message || 'Bilinmeyen');
+    }
     errEl.style.display = 'block';
   }
 };
