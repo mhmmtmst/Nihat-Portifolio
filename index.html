@@ -473,6 +473,15 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
             <div id="stat-countries"></div>
           </div>
         </div>
+
+        <!-- Son ziyaretçiler -->
+        <div class="admin-card" style="margin-top:1rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.12em;text-transform:uppercase;color:var(--neo);">🕐 Son Ziyaretçiler</div>
+            <span id="visitor-count" style="background:rgba(57,255,20,.1);color:var(--neo);border-radius:20px;padding:.1rem .6rem;font-size:.72rem;font-weight:700;">0</span>
+          </div>
+          <div id="visitor-list" style="max-height:400px;overflow-y:auto;display:flex;flex-direction:column;gap:.5rem;"></div>
+        </div>
       </div>
 
       <!-- SOHBET SAYFASI -->
@@ -1191,6 +1200,44 @@ async function loadStats() {
     document.getElementById('stat-devices').innerHTML = renderStatList(dev, visits.length);
     document.getElementById('stat-browsers').innerHTML = renderStatList(br, visits.length);
     document.getElementById('stat-countries').innerHTML = renderStatList(ct, visits.length);
+
+    // Son ziyaretçiler listesi
+    const sortedVisits = visits
+      .filter(v => v.timestamp)
+      .sort((a, b) => (b.timestamp?.toMillis?.() || 0) - (a.timestamp?.toMillis?.() || 0))
+      .slice(0, 50);
+    document.getElementById('visitor-count').textContent = sortedVisits.length;
+    const vList = document.getElementById('visitor-list');
+    if (sortedVisits.length === 0) {
+      vList.innerHTML = '<div style="text-align:center;padding:1.5rem;color:#3a5a3a;font-size:.85rem;">Henüz ziyaretçi yok</div>';
+    } else {
+      vList.innerHTML = sortedVisits.map(v => {
+        const t = v.timestamp.toDate();
+        const now = new Date();
+        const diffMin = Math.floor((now - t) / 60000);
+        let timeText;
+        if (diffMin < 1) timeText = 'Az önce';
+        else if (diffMin < 60) timeText = diffMin + ' dk önce';
+        else if (diffMin < 1440) timeText = Math.floor(diffMin/60) + ' saat önce';
+        else timeText = Math.floor(diffMin/1440) + ' gün önce';
+        const dateStr = t.toLocaleString('tr-TR', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+        const devIcon = v.device === 'Mobil' ? '📱' : '💻';
+        return `<div style="background:#111811;border:1px solid rgba(57,255,20,.08);border-radius:8px;padding:.7rem 1rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;">
+          <div style="font-size:1.1rem;flex-shrink:0;">${devIcon}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
+              <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;color:var(--neo);letter-spacing:.05em;">${escHtml(v.country || 'Bilinmiyor')}</span>
+              <span style="color:#3a5a3a;font-size:.7rem;">·</span>
+              <span style="color:#5a7a5a;font-size:.78rem;">${escHtml(v.browser || '?')}</span>
+              <span style="color:#3a5a3a;font-size:.7rem;">·</span>
+              <span style="color:#5a7a5a;font-size:.78rem;">${escHtml(v.device || '?')}</span>
+            </div>
+            <div style="font-size:.7rem;color:#3a5a3a;margin-top:.2rem;">${dateStr}</div>
+          </div>
+          <div style="font-size:.72rem;color:var(--neo);font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.05em;text-transform:uppercase;flex-shrink:0;">${timeText}</div>
+        </div>`;
+      }).join('');
+    }
   } catch(e) { console.error('Stats:', e); }
 }
 function renderStatList(obj, total) {
