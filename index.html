@@ -381,6 +381,59 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
     <!-- İçerik -->
     <div id="admin-content" style="display:none;">
+      <!-- Sekmeler -->
+      <div style="display:flex;gap:.5rem;margin-bottom:1.2rem;border-bottom:1px solid rgba(57,255,20,.1);">
+        <button id="tab-chats" onclick="switchTab('chats')" style="background:none;border:none;color:var(--neo);padding:.7rem 1.2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-bottom:2px solid var(--neo);margin-bottom:-1px;">💬 Sohbetler</button>
+        <button id="tab-stats" onclick="switchTab('stats')" style="background:none;border:none;color:#5a7a5a;padding:.7rem 1.2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s;">📊 İstatistikler</button>
+      </div>
+
+      <!-- İSTATİSTİK SAYFASI -->
+      <div id="stats-page" style="display:none;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;margin-bottom:1.2rem;">
+          <div class="admin-card" style="margin:0;padding:1.2rem;text-align:center;">
+            <div style="font-size:.68rem;color:#3a5a3a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.4rem;">Bugün</div>
+            <div id="stat-today" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;color:var(--neo);line-height:1;text-shadow:0 0 12px rgba(57,255,20,.3);">0</div>
+            <div style="font-size:.7rem;color:#5a7a5a;margin-top:.3rem;">ziyaret</div>
+          </div>
+          <div class="admin-card" style="margin:0;padding:1.2rem;text-align:center;">
+            <div style="font-size:.68rem;color:#3a5a3a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.4rem;">Bu Hafta</div>
+            <div id="stat-week" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;color:var(--neo);line-height:1;">0</div>
+            <div style="font-size:.7rem;color:#5a7a5a;margin-top:.3rem;">ziyaret</div>
+          </div>
+          <div class="admin-card" style="margin:0;padding:1.2rem;text-align:center;">
+            <div style="font-size:.68rem;color:#3a5a3a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.4rem;">Bu Ay</div>
+            <div id="stat-month" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;color:var(--neo);line-height:1;">0</div>
+            <div style="font-size:.7rem;color:#5a7a5a;margin-top:.3rem;">ziyaret</div>
+          </div>
+          <div class="admin-card" style="margin:0;padding:1.2rem;text-align:center;">
+            <div style="font-size:.68rem;color:#3a5a3a;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:.4rem;">Toplam</div>
+            <div id="stat-total" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;color:var(--neo);line-height:1;">0</div>
+            <div style="font-size:.7rem;color:#5a7a5a;margin-top:.3rem;">ziyaret</div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.12em;text-transform:uppercase;color:var(--neo);margin-bottom:1.2rem;">📈 Son 14 Gün</div>
+          <div id="stat-chart" style="display:flex;align-items:flex-end;gap:.4rem;height:140px;padding:0 .3rem;"></div>
+          <div id="stat-chart-labels" style="display:flex;gap:.4rem;margin-top:.5rem;padding:0 .3rem;"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem;">
+          <div class="admin-card" style="margin:0;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--neo);margin-bottom:1rem;">📱 Cihaz</div>
+            <div id="stat-devices"></div>
+          </div>
+          <div class="admin-card" style="margin:0;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--neo);margin-bottom:1rem;">🌐 Tarayıcı</div>
+            <div id="stat-browsers"></div>
+          </div>
+          <div class="admin-card" style="margin:0;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--neo);margin-bottom:1rem;">🌍 Ülke</div>
+            <div id="stat-countries"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOHBET SAYFASI -->
+      <div id="chats-page">
       <div style="display:grid;grid-template-columns:240px 1fr;gap:1.2rem;min-height:500px;">
 
         <!-- Sol: Konuşma listesi -->
@@ -926,6 +979,115 @@ function fixGrids() {
   const hg = document.getElementById('hero-grid'); if(hg) hg.style.gridTemplateColumns = mob ? '1fr' : '1fr auto';
 }
 window.addEventListener('resize', fixGrids); fixGrids();
+
+// ── ZİYARET TAKİBİ ──────────────────────────────
+async function trackVisit() {
+  if (sessionStorage.getItem('visit_tracked')) return;
+  sessionStorage.setItem('visit_tracked', '1');
+  const ua = navigator.userAgent;
+  const isMobile = /Mobile|Android|iPhone|iPad|iPod/i.test(ua);
+  const device = isMobile ? 'Mobil' : 'Masaüstü';
+  let browser = 'Diğer';
+  if (/Edg/i.test(ua)) browser = 'Edge';
+  else if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) browser = 'Chrome';
+  else if (/Firefox/i.test(ua)) browser = 'Firefox';
+  else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) browser = 'Safari';
+  else if (/Opera|OPR/i.test(ua)) browser = 'Opera';
+  let country = 'Bilinmiyor';
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    const data = await res.json();
+    country = data.country_name || 'Bilinmiyor';
+  } catch(e) {}
+  const today = new Date().toISOString().slice(0,10);
+  try {
+    await addDoc(collection(db, 'visits'), {
+      date: today, device, browser, country,
+      timestamp: serverTimestamp()
+    });
+  } catch(e) { console.error('Visit track failed:', e); }
+}
+trackVisit();
+
+// ── SEKME ──────────────────────────────
+window.switchTab = (tab) => {
+  const tabChats = document.getElementById('tab-chats');
+  const tabStats = document.getElementById('tab-stats');
+  const pageChats = document.getElementById('chats-page');
+  const pageStats = document.getElementById('stats-page');
+  if (tab === 'chats') {
+    pageChats.style.display = 'block';
+    pageStats.style.display = 'none';
+    tabChats.style.color = 'var(--neo)';
+    tabChats.style.borderBottomColor = 'var(--neo)';
+    tabStats.style.color = '#5a7a5a';
+    tabStats.style.borderBottomColor = 'transparent';
+  } else {
+    pageChats.style.display = 'none';
+    pageStats.style.display = 'block';
+    tabStats.style.color = 'var(--neo)';
+    tabStats.style.borderBottomColor = 'var(--neo)';
+    tabChats.style.color = '#5a7a5a';
+    tabChats.style.borderBottomColor = 'transparent';
+    loadStats();
+  }
+};
+
+// ── İSTATİSTİK ──────────────────────────────
+async function loadStats() {
+  try {
+    const snap = await getDocs(collection(db, 'visits'));
+    const visits = snap.docs.map(d => d.data());
+    const today = new Date().toISOString().slice(0,10);
+    const weekAgo = new Date(Date.now() - 7*86400000).toISOString().slice(0,10);
+    const monthAgo = new Date(Date.now() - 30*86400000).toISOString().slice(0,10);
+    document.getElementById('stat-total').textContent = visits.length;
+    document.getElementById('stat-today').textContent = visits.filter(v => v.date === today).length;
+    document.getElementById('stat-week').textContent = visits.filter(v => v.date >= weekAgo).length;
+    document.getElementById('stat-month').textContent = visits.filter(v => v.date >= monthAgo).length;
+    const days = [];
+    for (let i = 13; i >= 0; i--) {
+      const d = new Date(Date.now() - i*86400000);
+      const dStr = d.toISOString().slice(0,10);
+      const count = visits.filter(v => v.date === dStr).length;
+      days.push({ date: dStr, count, label: d.toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit'}) });
+    }
+    const max = Math.max(...days.map(d => d.count), 1);
+    document.getElementById('stat-chart').innerHTML = days.map(d => {
+      const h = (d.count / max) * 100;
+      return `<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:.3rem;" title="${d.label}: ${d.count}">
+        <div style="font-size:.65rem;color:var(--neo);font-weight:700;">${d.count || ''}</div>
+        <div style="width:100%;height:${Math.max(h, d.count > 0 ? 4 : 2)}%;background:linear-gradient(180deg,var(--neo),rgba(57,255,20,.3));border-radius:3px 3px 0 0;box-shadow:0 0 8px rgba(57,255,20,.2);min-height:2px;"></div>
+      </div>`;
+    }).join('');
+    document.getElementById('stat-chart-labels').innerHTML = days.map(d => `<div style="flex:1;text-align:center;font-size:.6rem;color:#3a5a3a;">${d.label}</div>`).join('');
+    const dev = {}, br = {}, ct = {};
+    visits.forEach(v => {
+      dev[v.device || '?'] = (dev[v.device || '?'] || 0) + 1;
+      br[v.browser || '?'] = (br[v.browser || '?'] || 0) + 1;
+      ct[v.country || '?'] = (ct[v.country || '?'] || 0) + 1;
+    });
+    document.getElementById('stat-devices').innerHTML = renderStatList(dev, visits.length);
+    document.getElementById('stat-browsers').innerHTML = renderStatList(br, visits.length);
+    document.getElementById('stat-countries').innerHTML = renderStatList(ct, visits.length);
+  } catch(e) { console.error('Stats:', e); }
+}
+function renderStatList(obj, total) {
+  const sorted = Object.entries(obj).sort((a,b) => b[1] - a[1]).slice(0,5);
+  if (sorted.length === 0) return '<div style="color:#3a5a3a;font-size:.85rem;">Henüz veri yok</div>';
+  return sorted.map(([name, count]) => {
+    const pct = Math.round((count / total) * 100);
+    return `<div style="margin-bottom:.7rem;">
+      <div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.3rem;">
+        <span style="color:#e2e8f0;font-family:'Barlow Condensed',sans-serif;font-weight:600;">${escHtml(name)}</span>
+        <span style="color:var(--neo);font-weight:700;">${count} <span style="color:#3a5a3a;font-weight:400;">(${pct}%)</span></span>
+      </div>
+      <div style="height:4px;background:rgba(57,255,20,.08);border-radius:2px;overflow:hidden;">
+        <div style="width:${pct}%;height:100%;background:linear-gradient(90deg,var(--neo),#a8ff80);border-radius:2px;"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
 
 // Mevcut sohbet varsa Firebase'de hâlâ var mı kontrol et
 if (visitorConvId && visitorName) {
