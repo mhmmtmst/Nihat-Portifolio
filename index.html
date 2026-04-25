@@ -118,19 +118,30 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 <body>
 
 <!-- ══ INTRO OVERLAY ══ -->
-<div id="intro-overlay" style="position:fixed;inset:0;z-index:99999;background:#080a08;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2rem;transition:opacity .8s ease,visibility .8s ease;">
-  <div style="position:relative;">
-    <div id="intro-name" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.5rem,8vw,5rem);text-transform:uppercase;letter-spacing:-.02em;line-height:1;text-align:center;">
-      <span style="display:block;color:#e2e8f0 !important;opacity:0;animation:introFadeUp .5s ease .1s forwards;-webkit-text-fill-color:#e2e8f0;">Muhammet</span>
-      <span style="display:block;color:transparent !important;-webkit-text-stroke:2px var(--neo);-webkit-text-fill-color:transparent;text-shadow:0 0 30px rgba(57,255,20,.5);opacity:0;animation:introFadeUp .5s ease .25s forwards;">Nihat</span>
-      <span style="display:block;color:#e2e8f0 !important;opacity:0;animation:introFadeUp .5s ease .4s forwards;-webkit-text-fill-color:#e2e8f0;">Mesut</span>
+<div id="intro-overlay" style="position:fixed;inset:0;z-index:99999;background:#080a08;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;transition:opacity .8s ease,visibility .8s ease;padding:1rem;">
+  <div style="font-family:'Courier New',monospace;font-size:clamp(1rem,2.4vw,1.3rem);line-height:1.9;color:#5a7a5a;width:100%;max-width:640px;">
+    <div id="intro-l1" style="visibility:hidden;"><span style="color:var(--neo);">$</span> <span id="intro-cmd1"></span></div>
+    <div id="intro-l2" style="visibility:hidden;color:#3a7a3a;font-size:.9em;"><span id="intro-cmd2"></span></div>
+    <div id="intro-l3" style="visibility:hidden;margin-top:.6rem;"><span style="color:var(--neo);">$</span> <span id="intro-cmd3"></span></div>
+    <div id="intro-l4" style="visibility:hidden;font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,6vw,3.2rem);font-weight:900;letter-spacing:-.01em;text-transform:uppercase;line-height:1.1;margin-top:.8rem;">
+      <span style="color:#e2e8f0 !important;-webkit-text-fill-color:#e2e8f0;">Muhammet </span><span style="color:transparent !important;-webkit-text-fill-color:transparent;-webkit-text-stroke:1.5px var(--neo);text-shadow:0 0 16px rgba(57,255,20,.5);">Nihat</span><span style="color:#e2e8f0 !important;-webkit-text-fill-color:#e2e8f0;"> Mesut</span>
     </div>
+    <div id="intro-l5" style="visibility:hidden;color:#3a5a3a;font-size:.9em;margin-top:.4rem;font-family:'Courier New',monospace;">// dual_</div>
   </div>
-  <div style="width:200px;height:2px;background:rgba(57,255,20,.15);border-radius:2px;overflow:hidden;opacity:0;animation:introFadeUp .5s ease 1.1s forwards;">
-    <div style="height:100%;background:linear-gradient(90deg,var(--neo),#a8ff80);box-shadow:0 0 10px var(--neo);width:0;animation:introBar 2.5s ease .5s forwards;"></div>
-  </div>
-  <div id="intro-tagline" style="font-family:'Barlow Condensed',sans-serif;font-size:.85rem;letter-spacing:.3em;text-transform:uppercase;color:#5a7a5a;opacity:0;animation:introFadeUp .5s ease .7s forwards;">Sisteme Bağlanılıyor...</div>
 </div>
+
+<style>
+@keyframes typing-cursor {
+  0%,100% { opacity:1; }
+  50% { opacity:0; }
+}
+.typing-text::after, .term-cursor::after {
+  content:'|';
+  color:var(--neo);
+  margin-left:2px;
+  animation:typing-cursor 1s infinite;
+}
+</style>
 
 <!-- ══ MOUSE GLOW ══ -->
 
@@ -503,7 +514,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
         <!-- Sağ: Aktif sohbet -->
         <div class="admin-card" style="padding:0;display:flex;flex-direction:column;overflow:hidden;">
-          <div id="admin-status-bar" style="display:none;background:#0d110d;border:1px solid rgba(57,255,20,.15);border-radius:10px;padding:.8rem 1.2rem;margin-bottom:1rem;">
+          <div id="admin-status-bar" style="display:none !important;">
         <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:#3a5a3a;margin-bottom:.7rem;">Durumunu Seç</div>
         <div style="display:flex;gap:1rem;">
           <button onclick="setStatus(true,'Çevrimiçi')" id="btn-online" class="btn-sm" style="flex:1;padding:.7rem;font-size:.88rem;background:rgba(57,255,20,.08);border:1.5px solid var(--neo);color:var(--neo);border-radius:8px;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:all .2s;">
@@ -778,6 +789,10 @@ window.openAdmin = () => {
   document.body.style.overflow = 'hidden';
 };
 window.closeAdmin = async () => {
+  // Çıkış yapmadan önce çevrimdışı yap
+  if (auth.currentUser) {
+    try { await setStatus(false, 'Çevrimdışı'); } catch(e) {}
+  }
   document.getElementById('admin-panel').style.display = 'none';
   document.body.style.overflow = '';
   document.getElementById('admin-content').style.display = 'none';
@@ -790,6 +805,13 @@ window.closeAdmin = async () => {
   if (adminMsgListener) adminMsgListener();
   try { await signOut(auth); } catch(e) {}
 };
+
+// Tab kapatınca otomatik çevrimdışı
+window.addEventListener('beforeunload', () => {
+  if (auth.currentUser) {
+    setStatus(false, 'Çevrimdışı');
+  }
+});
 
 window.checkAdmin = async () => {
   const email = document.getElementById('admin-email').value.trim();
@@ -807,7 +829,8 @@ window.checkAdmin = async () => {
     await signInWithEmailAndPassword(auth, email, pass);
     document.getElementById('admin-login').style.display = 'none';
     document.getElementById('admin-content').style.display = 'block';
-    document.getElementById('admin-status-bar').style.display = 'block';
+    // auto status - giriş yapınca çevrimiçi yap
+      setStatus(true, 'Çevrimiçi');
     loadConversations();
   } catch(e) {
     if (e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found') {
@@ -993,22 +1016,28 @@ async function updateOnlineStatus() {
       dotEl.style.background = 'var(--neo)';
       dotEl.style.boxShadow = '0 0 5px var(--neo)';
       textEl.style.color = 'var(--neo)';
-      textEl.textContent = data.statusText || 'Çevrimiçi';
+      textEl.textContent = 'Çevrimiçi';
     } else {
-      const last = data?.lastSeen?.toDate?.();
-      const diff = last ? Math.floor((Date.now() - last) / 60000) : null;
       dotEl.style.background = '#6b7280';
       dotEl.style.boxShadow = 'none';
       textEl.style.color = '#5a7a5a';
-      if (diff !== null && diff < 60) {
-        textEl.textContent = diff < 2 ? 'Az önce görüldü' : diff + ' dk önce görüldü';
+      const last = data?.lastSeen?.toDate?.();
+      if (last) {
+        const diff = Math.floor((Date.now() - last) / 60000);
+        let timeText;
+        if (diff < 1) timeText = 'az önce';
+        else if (diff < 60) timeText = diff + ' dk önce';
+        else if (diff < 1440) timeText = Math.floor(diff/60) + ' saat önce';
+        else if (diff < 10080) timeText = Math.floor(diff/1440) + ' gün önce';
+        else timeText = last.toLocaleDateString('tr-TR', {day:'2-digit',month:'2-digit'});
+        textEl.textContent = 'Son görülme: ' + timeText;
       } else {
-        textEl.textContent = 'Şu an müsait değil';
+        textEl.textContent = 'En kısa sürede bakacağım';
       }
     }
   } catch(e) {
     const textEl = document.getElementById('status-text');
-    if (textEl) { textEl.textContent = 'Mesaj bırakabilirsin 👋'; }
+    if (textEl) { textEl.textContent = 'En kısa sürede bakacağım'; }
   }
 }
 updateOnlineStatus();
@@ -1102,15 +1131,55 @@ async function trackVisit() {
 }
 trackVisit();
 
-// ── INTRO OVERLAY KAPAT ──────────────────────────────
-setTimeout(() => {
+// ── INTRO TERMINAL TYPING ──────────────────────────────
+async function typeInto(el, text, speed=30) {
+  return new Promise(r => {
+    el.parentElement.style.visibility = 'visible';
+    el.classList.add('term-cursor');
+    let i = 0;
+    const tick = () => {
+      if (i <= text.length) {
+        el.textContent = text.slice(0, i);
+        i++;
+        setTimeout(tick, speed);
+      } else {
+        el.classList.remove('term-cursor');
+        r();
+      }
+    };
+    tick();
+  });
+}
+
+async function runIntro() {
+  await new Promise(r => setTimeout(r, 100));
+  await typeInto(document.getElementById('intro-cmd1'), 'whoami', 45);
+  await new Promise(r => setTimeout(r, 120));
+  document.getElementById('intro-l2').style.visibility = 'visible';
+  await typeInto(document.getElementById('intro-cmd2'), '> BST @ Hitit Üni · 1. Sınıf', 22);
+  await new Promise(r => setTimeout(r, 150));
+  await typeInto(document.getElementById('intro-cmd3'), 'cat name.txt', 35);
+  await new Promise(r => setTimeout(r, 130));
+  document.getElementById('intro-l4').style.visibility = 'visible';
+  document.getElementById('intro-l4').style.animation = 'introFadeIn .5s ease forwards';
+  await new Promise(r => setTimeout(r, 450));
+  document.getElementById('intro-l5').style.visibility = 'visible';
+  document.getElementById('intro-l5').style.animation = 'introFadeIn .35s ease forwards';
+  await new Promise(r => setTimeout(r, 500));
+
   const intro = document.getElementById('intro-overlay');
   if (intro) {
     intro.style.opacity = '0';
     intro.style.visibility = 'hidden';
-    setTimeout(() => intro.remove(), 800);
+    setTimeout(() => intro.remove(), 600);
   }
-}, 3100);
+}
+
+const fadeStyle = document.createElement('style');
+fadeStyle.textContent = '@keyframes introFadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }';
+document.head.appendChild(fadeStyle);
+
+runIntro();
 
 // ── TYPING EFEKTİ ──────────────────────────────
 const typingTexts = [
@@ -1146,7 +1215,7 @@ function typeLoop() {
   }
 }
 // Intro bitince başlat
-setTimeout(typeLoop, 3300);
+setTimeout(typeLoop, 3700);
 
 // ── NICKNAME TYPING ──────────────────────────────
 const nickTexts = ['dual', 'mnm', 'nihatmesut', 'dual'];
@@ -1176,7 +1245,7 @@ function nickLoop() {
     setTimeout(nickLoop, 60);
   }
 }
-setTimeout(nickLoop, 3300);
+setTimeout(nickLoop, 3700);
 
 // Mouse glow kaldırıldı
 
