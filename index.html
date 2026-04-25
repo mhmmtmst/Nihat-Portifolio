@@ -799,10 +799,15 @@ window.openAdmin = () => {
   document.body.style.overflow = 'hidden';
 };
 window.closeAdmin = async () => {
-  // Çıkış yapmadan önce çevrimdışı yap
+  // Çıkış yapmadan önce çevrimdışı yap (auth hala aktifken)
   if (auth.currentUser) {
-    try { await setStatus(false, 'Çevrimdışı'); } catch(e) {}
+    try {
+      await setDoc(doc(db, 'admin', 'status'), {
+        online: false, statusText: 'Çevrimdışı', lastSeen: serverTimestamp()
+      });
+    } catch(e) { console.error('offline set fail:', e); }
   }
+  if (heartbeatTimer) { clearInterval(heartbeatTimer); heartbeatTimer = null; }
   document.getElementById('admin-panel').style.display = 'none';
   document.body.style.overflow = '';
   document.getElementById('admin-content').style.display = 'none';
@@ -816,11 +821,14 @@ window.closeAdmin = async () => {
   try { await signOut(auth); } catch(e) {}
 };
 
-// Tab kapatınca otomatik çevrimdışı
+// Tab kapatınca otomatik çevrimdışı (heartbeat durunca status zaten eskir)
 window.addEventListener('beforeunload', () => {
   if (auth.currentUser) {
-    setStatus(false, 'Çevrimdışı');
+    setDoc(doc(db, 'admin', 'status'), {
+      online: false, statusText: 'Çevrimdışı', lastSeen: serverTimestamp()
+    }).catch(()=>{});
   }
+  if (heartbeatTimer) clearInterval(heartbeatTimer);
 });
 
 window.checkAdmin = async () => {
@@ -839,9 +847,12 @@ window.checkAdmin = async () => {
     await signInWithEmailAndPassword(auth, email, pass);
     document.getElementById('admin-login').style.display = 'none';
     document.getElementById('admin-content').style.display = 'block';
-    // auto status - giriş yapınca çevrimiçi yap
-      setStatus(true, 'Çevrimiçi');
-      startHeartbeat();
+    // Çevrimiçi yap ve heartbeat başlat
+    await setDoc(doc(db, 'admin', 'status'), {
+      online: true, statusText: 'Çevrimiçi', lastSeen: serverTimestamp()
+    });
+    updateOnlineStatus();
+    startHeartbeat();
     loadConversations();
   } catch(e) {
     if (e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found') {
@@ -1034,12 +1045,12 @@ async function updateOnlineStatus() {
       textEl.style.color = '#5a7a5a';
       const last = data?.lastSeen?.toDate?.();
       if (last) {
-        const diff = Math.floor((Date.now() - last) / 60000);
+        const diffSec = Math.floor((Date.now() - last) / 1000);
         let timeText;
-        if (diff < 1) timeText = 'az önce';
-        else if (diff < 60) timeText = diff + ' dk önce';
-        else if (diff < 1440) timeText = Math.floor(diff/60) + ' saat önce';
-        else if (diff < 10080) timeText = Math.floor(diff/1440) + ' gün önce';
+        if (diffSec < 60) timeText = 'az önce';
+        else if (diffSec < 3600) timeText = Math.floor(diffSec/60) + ' dk önce';
+        else if (diffSec < 86400) timeText = Math.floor(diffSec/3600) + ' saat önce';
+        else if (diffSec < 604800) timeText = Math.floor(diffSec/86400) + ' gün önce';
         else timeText = last.toLocaleDateString('tr-TR', {day:'2-digit',month:'2-digit'});
         textEl.textContent = 'Son görülme: ' + timeText;
       } else {
@@ -1052,7 +1063,7 @@ async function updateOnlineStatus() {
   }
 }
 updateOnlineStatus();
-setInterval(updateOnlineStatus, 30000);
+setInterval(updateOnlineStatus, 10000);
 
 // ── GİZLİ ADMİN KISAYOLU - footer'a 5 kez tıkla
 let secretCount = 0, secretTimer;
@@ -1088,7 +1099,7 @@ async function startHeartbeat() {
       clearInterval(heartbeatTimer);
       heartbeatTimer = null;
     }
-  }, 30000);
+  }, 15000);
 }
 
 window.escHtml = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
