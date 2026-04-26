@@ -119,13 +119,12 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
 <!-- ══ INTRO OVERLAY ══ -->
 <div id="intro-overlay" style="position:fixed;inset:0;z-index:99999;background:#080a08;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;transition:opacity .8s ease,visibility .8s ease;padding:1rem;">
-  <div style="font-family:'Courier New',monospace;font-size:clamp(1rem,2.4vw,1.3rem);line-height:1.9;color:#5a7a5a;width:100%;max-width:640px;">
+  <div style="font-family:'Courier New',monospace;font-size:clamp(1rem,2.4vw,1.3rem);line-height:1.9;color:#5a7a5a;width:100%;max-width:640px;text-align:center;">
     <div id="intro-l1" style="visibility:hidden;"><span style="color:var(--neo);">$</span> <span id="intro-cmd1"></span></div>
     <div id="intro-l2" style="display:none;"><span id="intro-cmd2"></span></div>
     <div id="intro-l3" style="visibility:hidden;margin-top:.6rem;"><span style="color:var(--neo);">$</span> <span id="intro-cmd3"></span></div>
-    <div id="intro-l4" style="visibility:hidden;font-family:'Barlow Condensed',sans-serif;font-size:clamp(4rem,13vw,7.5rem);font-weight:900;letter-spacing:.08em;text-transform:uppercase;line-height:1;margin-top:.8rem;position:relative;display:inline-block;">
-      <span class="mnm-letter" style="display:inline-block;color:var(--neo) !important;-webkit-text-fill-color:var(--neo);text-shadow:0 0 25px rgba(57,255,20,.8),0 0 50px rgba(57,255,20,.4);opacity:0;transform:translateY(-30px) scale(.5);filter:blur(8px);">M</span><span class="mnm-letter" style="display:inline-block;color:var(--neo) !important;-webkit-text-fill-color:var(--neo);text-shadow:0 0 25px rgba(57,255,20,.8),0 0 50px rgba(57,255,20,.4);opacity:0;transform:translateY(-30px) scale(.5);filter:blur(8px);">N</span><span class="mnm-letter" style="display:inline-block;color:var(--neo) !important;-webkit-text-fill-color:var(--neo);text-shadow:0 0 25px rgba(57,255,20,.8),0 0 50px rgba(57,255,20,.4);opacity:0;transform:translateY(-30px) scale(.5);filter:blur(8px);">M</span><span id="mnm-underscore" style="display:inline-block;color:#2a3a2a;opacity:0;transform:translateY(-30px) scale(.5);filter:blur(8px);">_</span>
-      <div id="scan-line" style="position:absolute;left:-10%;right:-10%;top:50%;height:3px;background:linear-gradient(90deg,transparent,var(--neo),transparent);box-shadow:0 0 12px var(--neo),0 0 24px var(--neo);opacity:0;pointer-events:none;"></div>
+    <div id="intro-l4" style="visibility:hidden;font-family:'Barlow Condensed',sans-serif;font-size:clamp(4.5rem,15vw,8rem);font-weight:900;letter-spacing:.05em;text-transform:uppercase;line-height:1;margin:1rem 0 .5rem;position:relative;display:inline-block;">
+      <span class="mnm-letter" style="display:inline-block;color:transparent;-webkit-text-stroke:2.5px var(--neo);text-shadow:0 0 18px rgba(57,255,20,.8),0 0 40px rgba(57,255,20,.4),0 0 80px rgba(57,255,20,.2);opacity:0;transform:scale(0);">M</span><span class="mnm-letter" style="display:inline-block;color:transparent;-webkit-text-stroke:2.5px var(--neo);text-shadow:0 0 18px rgba(57,255,20,.8),0 0 40px rgba(57,255,20,.4),0 0 80px rgba(57,255,20,.2);opacity:0;transform:scale(0);">N</span><span class="mnm-letter" style="display:inline-block;color:transparent;-webkit-text-stroke:2.5px var(--neo);text-shadow:0 0 18px rgba(57,255,20,.8),0 0 40px rgba(57,255,20,.4),0 0 80px rgba(57,255,20,.2);opacity:0;transform:scale(0);">M</span><span id="mnm-underscore" style="display:inline-block;color:transparent;-webkit-text-stroke:2.5px var(--neo);text-shadow:0 0 18px rgba(57,255,20,.8),0 0 40px rgba(57,255,20,.4),0 0 80px rgba(57,255,20,.2);opacity:0;transform:scale(0);">_</span>
     </div>
     <div id="intro-l5" style="display:none;"></div>
     <div id="intro-bar-container" style="margin-top:1.4rem;opacity:0;transition:opacity .3s;">
@@ -1185,25 +1184,23 @@ async function runIntro() {
   await typeInto(document.getElementById('intro-cmd3'), 'cat name.txt', 32);
   await new Promise(r => setTimeout(r, 100));
 
-  // MNM_ harfleri sırayla düşsün
+  // MNM_ harfleri sırayla pop ile gelsin
   const l4 = document.getElementById('intro-l4');
   l4.style.visibility = 'visible';
   const letters = l4.querySelectorAll('.mnm-letter');
   for (let i = 0; i < letters.length; i++) {
-    letters[i].style.animation = `letterDrop .4s cubic-bezier(.68,-0.55,.27,1.55) ${i * 0.12}s forwards`;
+    letters[i].style.animation = `letterPop .35s cubic-bezier(.34,1.56,.64,1) ${i * 0.1}s forwards`;
   }
   const us = document.getElementById('mnm-underscore');
-  if (us) us.style.animation = `letterDrop .35s ease ${letters.length * 0.12}s forwards`;
-
-  await new Promise(r => setTimeout(r, 500));
-
-  // Scan line yatay geçsin
-  const scan = document.getElementById('scan-line');
-  if (scan) {
-    scan.style.animation = 'scanHorizontal .8s ease-out forwards';
+  if (us) {
+    us.style.animation = `letterPop .3s ease ${letters.length * 0.1}s forwards`;
+    // Pop bittikten sonra 2 kez yanıp sönsün
+    setTimeout(() => {
+      us.style.animation = 'underscoreBlink4x .4s step-end 4 forwards';
+    }, (letters.length * 100) + 350);
   }
 
-  await new Promise(r => setTimeout(r, 400));
+  await new Promise(r => setTimeout(r, 700));
   // l5 atlandı
 
   // Connecting bar başlat
@@ -1236,21 +1233,17 @@ async function runIntro() {
 const fadeStyle = document.createElement('style');
 fadeStyle.textContent = `
 @keyframes introFadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-@keyframes letterDrop {
-  0% { opacity:0; transform:translateY(-30px) scale(.5); filter:blur(8px); }
-  60% { opacity:1; transform:translateY(4px) scale(1.05); filter:blur(0); }
-  100% { opacity:1; transform:translateY(0) scale(1); }
+@keyframes letterPop {
+  0% { opacity:0; transform:scale(0); }
+  60% { opacity:1; transform:scale(1.15); }
+  100% { opacity:1; transform:scale(1); }
 }
-@keyframes scanHorizontal {
-  0% { left:-100%; right:100%; opacity:1; }
-  50% { opacity:1; }
-  100% { left:100%; right:-100%; opacity:0; }
+@keyframes underscoreBlink4x {
+  0% { opacity:1; }
+  50% { opacity:0; }
+  100% { opacity:1; }
 }
-@keyframes mnmGlow {
-  0%,100% { text-shadow:0 0 20px rgba(57,255,20,.7),0 0 40px rgba(57,255,20,.3); }
-  50% { text-shadow:0 0 35px rgba(57,255,20,1),0 0 70px rgba(57,255,20,.5),0 0 100px rgba(57,255,20,.2); }
-}
-.mnm-letter { animation:mnmGlow 2.5s ease-in-out infinite 1.5s; }
+.mnm-letter { /* parlama yok */ }
 @keyframes barFill {
   from { width:0; }
   to { width:100%; }
