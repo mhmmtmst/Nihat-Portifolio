@@ -6,7 +6,6 @@
 
 ![Stars](https://img.shields.io/github/stars/mhmmtmst/Nihat-Portifolio?style=for-the-badge&color=39FF14&labelColor=080a08)
 ![Forks](https://img.shields.io/github/forks/mhmmtmst/Nihat-Portifolio?style=for-the-badge&color=39FF14&labelColor=080a08)
-![License](https://img.shields.io/badge/License-MIT-39FF14?style=for-the-badge&labelColor=080a08)
 
 <br>
 
@@ -127,12 +126,6 @@ cd Nihat-Portifolio
 [![GitHub](https://img.shields.io/badge/GitHub-080a08?style=for-the-badge&logo=github&logoColor=39FF14)](https://github.com/mhmmtmst)
 
 </div>
-
-<br>
-
-## 📜 Lisans
-
-Bu proje **MIT Lisansı** altında lisanslanmıştır. Detaylar için [`LICENSE`](LICENSE) dosyasına bakın.
 
 <br>
 
