@@ -141,7 +141,7 @@ Bu proje **MIT Lisansı** altında lisanslanmıştır. Detaylar için [`LICENSE`
 ### ⭐ Beğendiysen yıldız vermeyi unutma!
 
 ```
-"Yazılım yolculuğu devam ediyor ⚡"
+"O şey uygun değildir bu şey uygun olur neden olmasın ⚡"
 ```
 
 </div>
